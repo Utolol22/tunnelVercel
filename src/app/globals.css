@@ -2,14 +2,34 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Définition explicite des classes personnalisées */
-@layer utilities {
-  .font-heading {
-    font-family: var(--font-anton);
+@layer base {
+  body {
+    @apply leading-relaxed text-slate-800;
+    font-family: var(--font-barlow), sans-serif;
   }
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-heading uppercase leading-tight;
+  }
+  h1 {
+    @apply text-4xl md:text-5xl font-normal;
+  }
+  h2 {
+    @apply text-3xl md:text-4xl font-normal;
+  }
+  h3 {
+    @apply text-xl md:text-2xl font-bold;
+  }
+  
+  .font-heading {
+    font-family: var(--font-anton), sans-serif;
+  }
+  
   .font-sans {
     font-family: var(--font-barlow);
   }
+}
+
+@layer utilities {
   .text-rouge-liberation {
     color: #B91C1C;
   }
@@ -51,24 +71,6 @@
   }
   .to-rouge-liberation {
     --tw-gradient-to: #B91C1C;
-  }
-}
-
-@layer base {
-  body {
-    @apply font-sans leading-relaxed text-slate-800;
-  }
-  h1, h2, h3, h4, h5, h6 {
-    @apply font-heading uppercase leading-tight;
-  }
-  h1 {
-    @apply text-4xl md:text-5xl font-normal;
-  }
-  h2 {
-    @apply text-3xl md:text-4xl font-normal;
-  }
-  h3 {
-    @apply text-xl md:text-2xl font-bold;
   }
 }
 
