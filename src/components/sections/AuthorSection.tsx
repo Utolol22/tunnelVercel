@@ -86,7 +86,7 @@ export function AuthorSection() {
             <div className="mt-10 text-center md:text-left">
               <Link href="#calendly"> {/* Changed link to Calendly section for clarity */}
                 <Button 
-                  variant="primary" 
+                  variant="default" 
                   size="lg" 
                   className="group"
                 >
@@ -100,4 +100,4 @@ export function AuthorSection() {
       </div>
     </section>
   );
-} 
+}
