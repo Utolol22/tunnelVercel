@@ -98,7 +98,7 @@ export function FinalCtaSection() {
             <div className="absolute inset-0 rounded-xl bg-[#C41E3A] opacity-20 blur-lg transform -translate-y-2 scale-105 animate-pulse-slow"></div>
             <Link href="#calendly-widget-final"> {/* Link to final widget */}
               <Button 
-                variant="primary" 
+                variant="default" 
                 size="xl" 
                 animation="pulse" 
                 roundness="lg" 
@@ -125,4 +125,4 @@ export function FinalCtaSection() {
       </div>
     </section>
   );
-} 
+}
