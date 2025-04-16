@@ -2,6 +2,58 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Définition explicite des classes personnalisées */
+@layer utilities {
+  .font-heading {
+    font-family: var(--font-anton);
+  }
+  .font-sans {
+    font-family: var(--font-barlow);
+  }
+  .text-rouge-liberation {
+    color: #B91C1C;
+  }
+  .text-rouge-sombre {
+    color: #7F1D1D;
+  }
+  .text-noir-profond {
+    color: #111827;
+  }
+  .text-blanc-purete {
+    color: #FFFFFF;
+  }
+  .text-gris-sagesse {
+    color: #6B7280;
+  }
+  .bg-sable-introspection {
+    background-color: #F9FAFB;
+  }
+  .bg-rouge-liberation {
+    background-color: #B91C1C;
+  }
+  .bg-blanc-purete {
+    background-color: #FFFFFF;
+  }
+  .bg-noir-profond {
+    background-color: #111827;
+  }
+  .border-gris-sagesse {
+    border-color: #6B7280;
+  }
+  .border-blanc-purete {
+    border-color: #FFFFFF;
+  }
+  .from-rouge-liberation {
+    --tw-gradient-from: #B91C1C;
+  }
+  .from-rouge-sombre {
+    --tw-gradient-from: #7F1D1D;
+  }
+  .to-rouge-liberation {
+    --tw-gradient-to: #B91C1C;
+  }
+}
+
 @layer base {
   body {
     @apply font-sans leading-relaxed text-slate-800;
