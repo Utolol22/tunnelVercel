@@ -4,6 +4,7 @@ import gsap from "gsap"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
 import { fadeInUp, staggerFadeIn, cleanupScrollTriggers } from "@/lib/gsap-utils"
 import { Lightbulb, Flame, Heart } from "lucide-react"
+import { CTAButton } from "@/components/ui/cta-button"
 
 // Enregistrer le plugin ScrollTrigger
 if (typeof window !== "undefined") {
@@ -15,6 +16,7 @@ export function SolutionSection() {
   const titleRef = useRef<HTMLHeadingElement>(null)
   const subtitleRef = useRef<HTMLParagraphElement>(null)
   const columnsRef = useRef<HTMLDivElement>(null)
+  const ctaRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     // S'assurer que le code s'exécute uniquement côté client
@@ -54,18 +56,34 @@ export function SolutionSection() {
       },
     })
 
+    // Animation pour le CTA
+    fadeInUp(ctaRef.current, {
+      y: 30,
+      delay: 0.3,
+      scrollTrigger: {
+        trigger: ctaRef.current,
+        start: "top 90%",
+        end: "top 70%",
+        scrub: 1,
+      },
+    })
+
     // Nettoyage des animations lors du démontage du composant
     return () => {
       cleanupScrollTriggers()
     }
   }, [])
 
+  // Ajouter une classe pour gérer la transition en haut de la section
   return (
     <section
       ref={sectionRef}
       id="solution"
-      className="bg-[#F5E6D3] py-12 sm:py-16 md:py-20 lg:py-28 text-[#2A2A2A] snap-section flex items-center"
+      className="bg-[#F5E6D3] py-12 sm:py-16 md:py-20 lg:py-28 text-[#2A2A2A] snap-section flex items-center relative"
     >
+      {/* Ombre subtile en haut pour améliorer la transition */}
+      <div className="absolute top-0 left-0 right-0 h-16 bg-gradient-to-b from-[#F5E6D3]/50 to-transparent pointer-events-none"></div>
+
       <div className="container mx-auto px-4">
         <div className="solution__content max-w-4xl mx-auto">
           <h2 ref={titleRef} className="font-heading text-3xl md:text-4xl text-center mb-6 text-rouge-liberation">
@@ -115,6 +133,11 @@ export function SolutionSection() {
                 Reconnecter avec tes ressources naturelles pour gérer émotions et stress sans béquille.
               </p>
             </div>
+          </div>
+
+          {/* CTA */}
+          <div ref={ctaRef} className="text-center mt-12">
+            <CTAButton variant="solution" pulse={false} />
           </div>
         </div>
       </div>

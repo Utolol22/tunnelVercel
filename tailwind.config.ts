@@ -60,7 +60,10 @@ const config = {
           foreground: "hsl(var(--card-foreground))",
         },
         "rouge-liberation": "#C41E3A",
+        "rouge-sombre": "#8A1428",
+        "rouge-tres-sombre": "#4A0A15",
         "noir-profond": "#121212",
+        "noir-rougeatre": "#1A0000",
         "blanc-purete": "#FFFFFF",
         "sable-introspection": "#F5E6D3",
         "gris-sagesse": "#4A4A4A",
@@ -84,6 +87,7 @@ const config = {
         "pulse-slow": "pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite",
         "glitch-1": "glitch1 2.5s infinite",
         "glitch-2": "glitch2 2.5s infinite",
+        "zero-pulse": "zeroPulse 4s ease-in-out infinite",
       },
       keyframes: {
         fadeIn: {
@@ -111,6 +115,11 @@ const config = {
           "25%": { transform: "translate(2px, 0)" },
           "50%": { transform: "translate(-2px, 1px)" },
           "75%": { transform: "translate(0, -1px)" },
+        },
+        zeroPulse: {
+          "0%": { opacity: "0.6", transform: "scale(1)", filter: "blur(2px)" },
+          "50%": { opacity: "0.8", transform: "scale(1.03)", filter: "blur(3px)" },
+          "100%": { opacity: "0.6", transform: "scale(1)", filter: "blur(2px)" },
         },
       },
       boxShadow: {

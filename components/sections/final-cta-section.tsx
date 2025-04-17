@@ -1,9 +1,8 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import Link from "next/link"
-import { Button } from "@/components/ui/button"
-import { Phone, Target, ArrowRight } from "lucide-react"
+import { Target } from "lucide-react"
+import { CTAButton } from "@/components/ui/cta-button"
 
 export function FinalCtaSection() {
   // État pour animer le CTA
@@ -85,22 +84,25 @@ export function FinalCtaSection() {
 
           <div className={`mb-16 relative ${ctaHighlighted ? "animate-fadeScale" : ""}`}>
             <div className="absolute inset-0 rounded-xl bg-[#C41E3A] opacity-20 blur-lg transform -translate-y-2 scale-105 animate-pulse-slow"></div>
-            <Link href="#calendly-widget-final">
-              <Button
-                variant="default"
-                size="xl"
-                animation="pulse"
-                roundness="lg"
-                fullWidthMobile={true}
-                className="shadow-cta relative z-10 px-8 uppercase font-semibold tracking-wide"
-              >
-                <Phone className="mr-3 h-5 w-5" />
-                Réserver ma session gratuite avec Pierre
-                <ArrowRight className="ml-3 h-5 w-5 transition-transform group-hover:translate-x-1" />
-              </Button>
-            </Link>
+            <CTAButton
+              variant="final"
+              pulse={true}
+              fullWidth={true}
+              badge={{
+                text: "DERNIÈRES PLACES",
+                color: "bg-yellow-400",
+              }}
+              href="#calendly-widget-final"
+            />
             <p className="mt-4 text-xs text-[#EDEDED]/60 italic">
               Entretien confidentiel de 60 minutes - Places limitées
+            </p>
+          </div>
+
+          {/* Compteur social */}
+          <div className="mb-12 bg-noir-profond/50 p-4 rounded-lg border border-[#C41E3A]/20">
+            <p className="text-sm text-blanc-purete/90 font-medium">
+              Rejoins les <span className="text-yellow-400 font-bold">1000+</span> personnes libérées
             </p>
           </div>
 

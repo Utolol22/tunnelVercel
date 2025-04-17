@@ -1,12 +1,11 @@
 "use client"
-import Link from "next/link"
-import { Button } from "@/components/ui/button"
 import { motion } from "framer-motion"
 import { useInView } from "react-intersection-observer"
 import { containerVariants, fadeInVariants } from "@/lib/motionVariants"
 import { useState } from "react"
 import { ChevronLeft, ChevronRight } from "lucide-react"
 import Image from "next/image"
+import { CTAButton } from "@/components/ui/cta-button"
 
 export function TestimonialsSection() {
   const [ref, inView] = useInView({
@@ -128,11 +127,7 @@ export function TestimonialsSection() {
           </motion.div>
 
           <motion.div className="text-center" variants={fadeInVariants}>
-            <Link href="#calendly">
-              <Button variant="default" size="lg">
-                Voir tous les retours
-              </Button>
-            </Link>
+            <CTAButton variant="testimonial" pulse={true} />
           </motion.div>
         </div>
       </div>

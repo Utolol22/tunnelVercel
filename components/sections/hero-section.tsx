@@ -1,12 +1,10 @@
 "use client"
 import { useEffect, useRef } from "react"
-import Link from "next/link"
-import { Button } from "@/components/ui/button"
-import { ArrowRight } from "lucide-react"
 import Image from "next/image"
 import gsap from "gsap"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
 import { blurDataURLs } from "@/lib/image-blur"
+import { CTAButton } from "@/components/ui/cta-button"
 
 // Enregistrer le plugin ScrollTrigger
 if (typeof window !== "undefined") {
@@ -77,10 +75,10 @@ export function HeroSection() {
   }, [])
 
   return (
-    <section
-      ref={sectionRef}
-      className="hero bg-black text-blanc-purete pt-24 pb-16 snap-section flex items-center relative"
-    >
+    <section ref={sectionRef} className="hero text-blanc-purete pt-24 pb-16 snap-section flex items-center relative">
+      {/* Dégradé de fond amélioré */}
+      <div className="absolute inset-0 bg-gradient-to-b from-noir-profond via-noir-profond to-[#1A0000] z-0"></div>
+
       {/* Effet de vignettage subtil */}
       <div
         className="absolute inset-0 pointer-events-none z-10"
@@ -89,19 +87,47 @@ export function HeroSection() {
         }}
       ></div>
 
+      {/* Overlay subtil rouge */}
+      <div className="absolute inset-0 bg-rouge-liberation/5 mix-blend-overlay z-5"></div>
+
       <div className="container mx-auto px-4 relative z-20">
-        <div className="flex flex-col md:flex-row items-center justify-between gap-12">
-          {/* Image circulaire avec bordure rouge */}
-          <div ref={imageRef} className="hero__image flex-1 flex justify-center md:justify-end">
-            <div className="relative w-64 h-64 md:w-80 md:h-80">
-              <div className="absolute inset-0 rounded-full border-2 border-rouge-liberation animate-pulse-slow"></div>
-              <div className="absolute inset-0 rounded-full overflow-hidden border-4 border-rouge-liberation">
+        <div className="flex flex-col md:flex-row items-center justify-center gap-8 md:gap-12 lg:gap-16">
+          {/* Image avec le "0" */}
+          <div ref={imageRef} className="hero__image w-64 h-96 md:w-80 md:h-[28rem] flex-shrink-0">
+            <div className="relative w-full h-full">
+              {/* Effet de pulsation rouge discret */}
+              <div
+                className="absolute inset-0 zero-shape-tall filter blur-[2px] animate-pulse-slow"
+                style={{
+                  boxShadow: "0 0 15px 2px rgba(196, 30, 58, 0.4)",
+                  transform: "scale(1.05)",
+                }}
+              ></div>
+
+              {/* Forme du "0" en blanc avec effet de profondeur et liseret noir externe */}
+              <div
+                className="absolute inset-0 zero-shape-tall bg-blanc-purete"
+                style={{
+                  boxShadow: "0 10px 30px rgba(0, 0, 0, 0.3), inset 0 0 10px rgba(0, 0, 0, 0.1)",
+                  border: "2px solid #000000", // Liseret noir externe
+                }}
+              >
+                {/* Trou intérieur du "0" - transparent pour voir l'image */}
+                <div
+                  className="absolute inset-[15%] zero-shape-tall-inner bg-transparent"
+                  style={{
+                    border: "2px solid #000000", // Liseret noir interne
+                  }}
+                ></div>
+              </div>
+
+              {/* Image à l'intérieur du "0" */}
+              <div className="absolute inset-[15%] overflow-hidden zero-shape-tall-inner">
                 <Image
                   src="/img/pierre-portrait.png"
                   alt="Pierre, coach en libération de l'alcool"
-                  width={320}
-                  height={320}
-                  className="object-cover w-full h-full"
+                  fill
+                  className="object-cover object-center"
                   sizes="(max-width: 640px) 80vw, (max-width: 1024px) 60vw, 50vw"
                   priority
                   placeholder="blur"
@@ -112,7 +138,7 @@ export function HeroSection() {
           </div>
 
           {/* Contenu textuel */}
-          <div ref={contentRef} className="hero__content flex-1 max-w-2xl text-center md:text-left">
+          <div ref={contentRef} className="hero__content max-w-2xl text-center md:text-left">
             <p className="text-sm sm:text-base md:text-lg text-sable-introspection mb-4 animate-pulse-slow">
               <span className="text-base sm:text-lg md:text-xl font-semibold">
                 Jour 0 : Le début du vrai changement
@@ -125,23 +151,14 @@ export function HeroSection() {
               Découvre comment sortir du cycle sans lutte et retrouver ta liberté.
             </p>
             <div className="hero__cta">
-              <Link href="#solution">
-                <Button
-                  variant="default"
-                  size="lg"
-                  className="bg-rouge-liberation hover:bg-rouge-liberation/90 text-white px-6 py-3 rounded-md font-medium"
-                >
-                  Découvrir la clé
-                  <ArrowRight className="ml-2 h-5 w-5" />
-                </Button>
-              </Link>
+              <CTAButton variant="hero" pulse={true} text="Provoque ton déclic !" />
             </div>
           </div>
         </div>
       </div>
 
       {/* Dégradé subtil vers la section suivante */}
-      <div className="absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-b from-transparent to-noir-profond pointer-events-none"></div>
+      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-b from-[#1A0000] to-noir-profond pointer-events-none"></div>
     </section>
   )
 }

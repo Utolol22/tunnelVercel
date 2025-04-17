@@ -294,3 +294,248 @@ header nav a.active::after {
     transform: scale(1.05);
   }
 }
+
+/* Amélioration des transitions entre sections */
+.section-transition {
+  position: relative;
+}
+
+.section-transition::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 100px;
+  background: linear-gradient(to bottom, transparent, rgba(0, 0, 0, 0.1));
+  pointer-events: none;
+}
+
+/* Effet de fondu pour les dégradés */
+.gradient-overlay {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at center, transparent 0%, rgba(0, 0, 0, 0.3) 100%);
+  mix-blend-mode: overlay;
+  pointer-events: none;
+}
+
+/* Ajouter ces styles à la fin du fichier */
+
+/* Forme du "0" ovale allongé */
+.zero-shape-tall {
+  border-radius: 50% / 35%;
+  width: 100%;
+  height: 100%;
+}
+
+/* Trou intérieur du "0" */
+.zero-shape-tall-inner {
+  border-radius: 50% / 35%;
+}
+
+/* Animation de pulsation améliorée pour le "0" */
+@keyframes zeroPulse {
+  0% {
+    opacity: 0.6;
+    transform: scale(1);
+    filter: blur(2px);
+    box-shadow: 0 0 15px 2px rgba(196, 30, 58, 0.3);
+  }
+  50% {
+    opacity: 0.8;
+    transform: scale(1.03);
+    filter: blur(3px);
+    box-shadow: 0 0 20px 4px rgba(196, 30, 58, 0.5);
+  }
+  100% {
+    opacity: 0.6;
+    transform: scale(1);
+    filter: blur(2px);
+    box-shadow: 0 0 15px 2px rgba(196, 30, 58, 0.3);
+  }
+}
+
+.animate-zero-pulse {
+  animation: zeroPulse 4s ease-in-out infinite;
+}
+
+/* Ajouter ces styles pour les transitions entre sections */
+.wave-transition {
+  position: relative;
+  overflow: hidden;
+}
+
+/* Animation de vague */
+@keyframes wave {
+  0% {
+    transform: translateX(0) translateZ(0) scaleY(1);
+  }
+  50% {
+    transform: translateX(-25%) translateZ(0) scaleY(0.8);
+  }
+  100% {
+    transform: translateX(-50%) translateZ(0) scaleY(1);
+  }
+}
+
+.wave-animation path {
+  animation: wave 15s cubic-bezier(0.36, 0.45, 0.63, 0.53) infinite;
+}
+
+/* Ajustement du bouton CTA dans la section problème */
+#problem .cta-button-container {
+  position: relative;
+  display: inline-block;
+  margin: 0 auto;
+}
+
+#problem .cta-button-container::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(196, 30, 58, 0.3);
+  filter: blur(8px);
+  border-radius: 0.5rem;
+  transform: scale(0.98);
+  z-index: 0;
+}
+
+#problem .cta-button-container button {
+  position: relative;
+  z-index: 1;
+}
+
+/* Ajouter ces styles à la fin du fichier globals.css */
+
+/* Styles pour assurer la cohérence d'alignement entre les sections */
+.container {
+  width: 100%;
+  max-width: 1280px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+@media (min-width: 640px) {
+  .container {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .container {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+}
+
+/* Assurer que les sections utilisent la même largeur maximale */
+.hero__content,
+.problem__content,
+.solution__content {
+  max-width: 1024px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Centrage cohérent des éléments */
+.flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Assurer que les grilles sont bien centrées */
+.grid {
+  display: grid;
+  width: 100%;
+}
+
+/* Ajustement pour les sections avec des dispositions flex */
+.flex-col-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.flex-row-center {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Assurer que les images sont bien centrées */
+.image-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+/* Assurer que les sections ont un padding cohérent */
+.section-padding {
+  padding-top: 4rem;
+  padding-bottom: 4rem;
+}
+
+@media (min-width: 768px) {
+  .section-padding {
+    padding-top: 6rem;
+    padding-bottom: 6rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .section-padding {
+    padding-top: 8rem;
+    padding-bottom: 8rem;
+  }
+}
+
+/* Styles spécifiques pour la section problème */
+#problem .container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#problem .max-w-4xl {
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#problem .grid {
+  width: 100%;
+}
+
+#problem .problem-bullet {
+  height: 100%;
+}
+
+/* Assurer que l'image du cycle est bien centrée */
+#problem .flex.justify-center {
+  width: 100%;
+}
+
+/* Assurer que le CTA est bien centré */
+#problem .flex.justify-center .relative.inline-block {
+  margin: 0 auto;
+}
+
+/* Ajuster le conteneur pour les écrans plus petits */
+@media (max-width: 768px) {
+  #problem .container {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  #problem .max-w-4xl {
+    padding-left: 0;
+    padding-right: 0;
+  }
+}

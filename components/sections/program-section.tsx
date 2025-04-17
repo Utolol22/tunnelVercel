@@ -4,6 +4,8 @@ import { motion } from "framer-motion"
 import { useInView } from "react-intersection-observer"
 import { containerVariants, fadeInVariants, listItemVariants } from "@/lib/motionVariants"
 import { useState } from "react"
+import { CTAButton } from "@/components/ui/cta-button"
+import { CTABanner } from "@/components/ui/cta-banner"
 
 export function ProgramSection() {
   const [ref, inView] = useInView({
@@ -107,8 +109,28 @@ export function ProgramSection() {
             </div>
             <p className="text-[#2A2A2A]">{phases[activePhase - 1].description}</p>
           </motion.div>
+
+          {/* CTA */}
+          <motion.div className="text-center mt-12" variants={fadeInVariants}>
+            <CTAButton
+              variant="program"
+              pulse={true}
+              badge={{
+                text: "COMMENCE MAINTENANT",
+                color: "bg-yellow-400",
+              }}
+            />
+          </motion.div>
         </div>
       </div>
+
+      {/* Bannière CTA entre les sections */}
+      <CTABanner
+        text="Prêt(e) à commencer ton parcours ?"
+        subtext="Réserve ton appel découverte gratuit"
+        className="mt-16"
+        bgColor="bg-noir-profond"
+      />
     </motion.section>
   )
 }

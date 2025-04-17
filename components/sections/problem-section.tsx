@@ -4,9 +4,9 @@ import { useRef, useState, useEffect } from "react"
 import Image from "next/image"
 import gsap from "gsap"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
-import { Button } from "@/components/ui/button"
 import { AlertCircle, RefreshCw, Lock } from "lucide-react"
 import { blurDataURLs } from "@/lib/image-blur"
+import { CTAButton } from "@/components/ui/cta-button"
 
 // Enregistrer le plugin ScrollTrigger
 if (typeof window !== "undefined") {
@@ -146,7 +146,7 @@ export function ProblemAgitationSection() {
       className="relative snap-section text-white overflow-hidden pt-16 sm:pt-24 md:pt-36 pb-20 flex items-center"
     >
       {/* Arrière-plan simplifié qui s'aligne avec la HeroSection */}
-      <div className="absolute inset-0 bg-gradient-to-b from-noir-profond to-[#0A0000] z-0"></div>
+      <div className="absolute inset-0 bg-gradient-to-b from-noir-profond via-[#1A0000] to-[#0A0000] z-0"></div>
 
       {/* Effet de vignettage statique et léger */}
       <div
@@ -159,7 +159,7 @@ export function ProblemAgitationSection() {
       {/* Conteneur principal */}
       <div className="container mx-auto px-4 relative z-10">
         {/* Titre */}
-        <div className="mb-12 text-center relative pt-4">
+        <div className="mb-12 text-center relative pt-4 max-w-4xl mx-auto">
           <h2 ref={titleRef} className="text-2xl sm:text-3xl lg:text-4xl font-bold relative">
             T'en as marre ?{" "}
             <span className="text-[#C41E3A] relative">
@@ -210,8 +210,8 @@ export function ProblemAgitationSection() {
           </div>
 
           {/* Image du cycle de l'addiction - conditionnelle sur mobile */}
-          <div ref={imageRef} className={`${isMobile ? "max-h-[60vh] overflow-hidden" : ""} mb-12`}>
-            <div className="relative mx-auto max-w-full sm:max-w-2xl">
+          <div ref={imageRef} className={`${isMobile ? "max-h-[60vh] overflow-hidden" : ""} mb-12 flex justify-center`}>
+            <div className="relative max-w-full sm:max-w-2xl">
               {/* Image */}
               <div className="relative rounded-xl overflow-hidden shadow-lg border border-rouge-liberation/20">
                 <Image
@@ -238,20 +238,29 @@ export function ProblemAgitationSection() {
             </div>
           </div>
 
-          <div ref={ctaRef} className="text-center">
-            <Button
-              variant="default"
-              size="lg"
-              className="bg-[#C41E3A] hover:bg-[#C41E3A]/90 text-white font-bold py-3 px-8 rounded-lg shadow-lg transform transition duration-300 hover:translate-y-[-2px] border border-[#C41E3A]/50"
-            >
-              Je me reconnais
-            </Button>
+          {/* CTA avec effet de halo ajusté */}
+          <div ref={ctaRef} className="flex justify-center mt-8 mb-12">
+            <div className="relative inline-block max-w-md">
+              {/* Effet de halo ajusté */}
+              <div className="absolute inset-0 bg-rouge-liberation/30 blur-md rounded-lg transform scale-[0.98]"></div>
+              <CTAButton variant="problem" pulse={false} className="relative z-10" />
+            </div>
           </div>
         </div>
       </div>
 
-      {/* Transition vers la section suivante */}
-      <div className="absolute bottom-0 left-0 right-0 h-[100px] bg-gradient-to-b from-transparent to-[#F5E6D3]/10 pointer-events-none z-10"></div>
+      {/* Transition élégante vers la section suivante */}
+      <div className="relative w-full overflow-hidden">
+        {/* Vague de transition */}
+        <div className="absolute bottom-0 left-0 right-0 w-full">
+          <svg viewBox="0 0 1200 120" preserveAspectRatio="none" className="w-full h-24 sm:h-32 md:h-40" fill="#F5E6D3">
+            <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V120H0V0C0,0,0,0,0,0z"></path>
+          </svg>
+        </div>
+
+        {/* Dégradé de couleur pour une transition plus douce */}
+        <div className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-[#F5E6D3] to-transparent pointer-events-none"></div>
+      </div>
     </section>
   )
 }
