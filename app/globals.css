@@ -496,46 +496,43 @@ header nav a.active::after {
   }
 }
 
-/* Styles spécifiques pour la section problème */
-#problem .container {
+/* Styles génériques pour assurer la cohérence entre les sections */
+.container {
+  width: 100%;
+  max-width: 1280px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+@media (min-width: 640px) {
+  .container {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .container {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+}
+
+/* Assurer que les grilles sont bien alignées */
+.grid.w-full {
+  width: 100%;
+}
+
+/* Assurer que les éléments flex sont bien centrés */
+.flex.justify-center.w-full {
+  width: 100%;
+}
+
+/* Assurer que les sections ont un alignement cohérent */
+.snap-section.flex.items-center.justify-center > .container {
   display: flex;
   flex-direction: column;
   align-items: center;
-}
-
-#problem .max-w-4xl {
-  width: 100%;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-#problem .grid {
-  width: 100%;
-}
-
-#problem .problem-bullet {
-  height: 100%;
-}
-
-/* Assurer que l'image du cycle est bien centrée */
-#problem .flex.justify-center {
-  width: 100%;
-}
-
-/* Assurer que le CTA est bien centré */
-#problem .flex.justify-center .relative.inline-block {
-  margin: 0 auto;
-}
-
-/* Ajuster le conteneur pour les écrans plus petits */
-@media (max-width: 768px) {
-  #problem .container {
-    padding-left: 1rem;
-    padding-right: 1rem;
-  }
-
-  #problem .max-w-4xl {
-    padding-left: 0;
-    padding-right: 0;
-  }
 }

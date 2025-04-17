@@ -143,7 +143,7 @@ export function ProblemAgitationSection() {
     <section
       ref={sectionRef}
       id="problem"
-      className="relative snap-section text-white overflow-hidden pt-16 sm:pt-24 md:pt-36 pb-20 flex items-center"
+      className="relative snap-section text-white overflow-hidden pt-16 sm:pt-24 md:pt-36 pb-20 flex flex-col justify-center"
     >
       {/* Arrière-plan simplifié qui s'aligne avec la HeroSection */}
       <div className="absolute inset-0 bg-gradient-to-b from-noir-profond via-[#1A0000] to-[#0A0000] z-0"></div>
@@ -157,9 +157,9 @@ export function ProblemAgitationSection() {
       ></div>
 
       {/* Conteneur principal */}
-      <div className="container mx-auto px-4 relative z-10">
+      <div className="container relative z-10">
         {/* Titre */}
-        <div className="mb-12 text-center relative pt-4 max-w-4xl mx-auto">
+        <div className="mb-12 text-center relative pt-4">
           <h2 ref={titleRef} className="text-2xl sm:text-3xl lg:text-4xl font-bold relative">
             T'en as marre ?{" "}
             <span className="text-[#C41E3A] relative">
@@ -170,8 +170,8 @@ export function ProblemAgitationSection() {
         </div>
 
         {/* Contenu simplifié avec 3 bullets */}
-        <div ref={contentRef} className="max-w-4xl mx-auto relative mt-4 sm:mt-8">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+        <div ref={contentRef} className="relative mt-4 sm:mt-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 w-full gap-8 mb-12">
             {/* Bullet 1 */}
             <div className="problem-bullet bg-noir-profond/50 p-6 rounded-lg border-l-4 border-rouge-liberation shadow-lg">
               <div className="flex items-start mb-4">
@@ -210,7 +210,10 @@ export function ProblemAgitationSection() {
           </div>
 
           {/* Image du cycle de l'addiction - conditionnelle sur mobile */}
-          <div ref={imageRef} className={`${isMobile ? "max-h-[60vh] overflow-hidden" : ""} mb-12 flex justify-center`}>
+          <div
+            ref={imageRef}
+            className={`${isMobile ? "max-h-[60vh] overflow-hidden" : ""} mb-12 flex justify-center w-full`}
+          >
             <div className="relative max-w-full sm:max-w-2xl">
               {/* Image */}
               <div className="relative rounded-xl overflow-hidden shadow-lg border border-rouge-liberation/20">
@@ -239,7 +242,7 @@ export function ProblemAgitationSection() {
           </div>
 
           {/* CTA avec effet de halo ajusté */}
-          <div ref={ctaRef} className="flex justify-center mt-8 mb-12">
+          <div ref={ctaRef} className="flex justify-center w-full mt-8 mb-12">
             <div className="relative inline-block max-w-md">
               {/* Effet de halo ajusté */}
               <div className="absolute inset-0 bg-rouge-liberation/30 blur-md rounded-lg transform scale-[0.98]"></div>
