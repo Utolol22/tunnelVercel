@@ -30,13 +30,25 @@ export default function Home() {
       document.body.appendChild(script)
     }
 
+    // Effet pour désactiver le scroll snapping pendant le chargement de la page
+    const enableSnapAfterLoad = () => {
+      document.documentElement.classList.add("snap-enabled")
+    }
+
+    // Activer le snap après le chargement complet
+    if (document.readyState === "complete") {
+      enableSnapAfterLoad()
+    } else {
+      window.addEventListener("load", enableSnapAfterLoad)
+    }
+
     return () => {
-      // Cleanup if needed
+      window.removeEventListener("load", enableSnapAfterLoad)
     }
   }, [])
 
   return (
-    <main className="min-h-screen">
+    <main className="min-h-screen snap-mandatory">
       <SmoothScroll />
       <HeroSection />
       <VideoSection />

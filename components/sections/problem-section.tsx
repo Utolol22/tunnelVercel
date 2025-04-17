@@ -3,10 +3,21 @@
 import { useRef, useState, useEffect } from "react"
 import Link from "next/link"
 import Image from "next/image"
+import gsap from "gsap"
+import { ScrollTrigger } from "gsap/ScrollTrigger"
+
+// Enregistrer le plugin ScrollTrigger
+if (typeof window !== "undefined") {
+  gsap.registerPlugin(ScrollTrigger)
+}
 
 export function ProblemAgitationSection() {
-  const ref = useRef(null)
-  const [isVisible, setIsVisible] = useState(false)
+  const sectionRef = useRef<HTMLElement>(null)
+  const titleRef = useRef<HTMLHeadingElement>(null)
+  const contentRef = useRef<HTMLDivElement>(null)
+  const imageRef = useRef<HTMLDivElement>(null)
+  const ctaRef = useRef<HTMLDivElement>(null)
+
   const [isMobile, setIsMobile] = useState(false)
 
   // Vérification si on est sur mobile
@@ -21,30 +32,118 @@ export function ProblemAgitationSection() {
     return () => window.removeEventListener("resize", checkMobile)
   }, [])
 
-  // Observer pour l'animation au scroll
+  // Effet pour les animations GSAP
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true)
-        }
-      },
-      { threshold: 0.1 },
-    )
+    // S'assurer que le code s'exécute uniquement côté client
+    if (typeof window === "undefined") return
 
-    if (ref.current) {
-      observer.observe(ref.current)
+    // Animation pour le titre
+    if (titleRef.current) {
+      gsap.fromTo(
+        titleRef.current,
+        {
+          y: 30,
+          opacity: 0,
+        },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 0.8,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: "top 80%",
+            end: "top 50%",
+            scrub: 1,
+            // markers: true, // Utile pour le débogage
+          },
+        },
+      )
     }
 
+    // Animation pour le contenu textuel
+    const paragraphs = contentRef.current?.querySelectorAll("p")
+    if (paragraphs) {
+      gsap.fromTo(
+        paragraphs,
+        {
+          y: 40,
+          opacity: 0,
+        },
+        {
+          y: 0,
+          opacity: 1,
+          stagger: 0.1,
+          duration: 0.8,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: contentRef.current,
+            start: "top 80%",
+            end: "bottom 50%",
+            scrub: 1,
+          },
+        },
+      )
+    }
+
+    // Animation pour l'image
+    if (imageRef.current) {
+      gsap.fromTo(
+        imageRef.current,
+        {
+          scale: 0.9,
+          opacity: 0,
+        },
+        {
+          scale: 1,
+          opacity: 1,
+          duration: 1,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: imageRef.current,
+            start: "top 80%",
+            end: "top 30%",
+            scrub: 1,
+          },
+        },
+      )
+    }
+
+    // Animation pour le CTA
+    if (ctaRef.current) {
+      gsap.fromTo(
+        ctaRef.current,
+        {
+          y: 20,
+          opacity: 0,
+        },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 0.6,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: ctaRef.current,
+            start: "top 90%",
+            end: "top 70%",
+            scrub: 1,
+          },
+        },
+      )
+    }
+
+    // Nettoyage des animations lors du démontage du composant
     return () => {
-      if (ref.current) {
-        observer.unobserve(ref.current)
-      }
+      ScrollTrigger.getAll().forEach((trigger) => trigger.kill())
     }
   }, [])
 
   return (
-    <section ref={ref} id="problem" className="relative min-h-screen text-white overflow-hidden pt-36 sm:pt-40 pb-20">
+    <section
+      ref={sectionRef}
+      id="problem"
+      className="relative snap-section text-white overflow-hidden pt-36 sm:pt-40 pb-20 flex items-center"
+    >
       {/* Arrière-plan simplifié qui s'aligne avec la HeroSection */}
       <div className="absolute inset-0 bg-gradient-to-b from-noir-profond to-[#0A0000] z-0"></div>
 
@@ -59,10 +158,8 @@ export function ProblemAgitationSection() {
       {/* Conteneur principal */}
       <div className="container mx-auto px-4 relative z-10">
         {/* Titre */}
-        <div
-          className={`mb-8 sm:mb-12 text-center relative pt-4 transition-opacity duration-700 ${isVisible ? "opacity-100" : "opacity-0"}`}
-        >
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold relative">
+        <div className="mb-8 sm:mb-12 text-center relative pt-4">
+          <h2 ref={titleRef} className="text-2xl sm:text-3xl md:text-4xl font-bold relative">
             T'en as marre ?{" "}
             <span className="text-[#C41E3A] relative">
               Tu ne veux plus continuer comme ça ?{/* Halo subtil sous le texte */}
@@ -73,9 +170,7 @@ export function ProblemAgitationSection() {
 
         {/* Contenu simplifié */}
         <div className="max-w-4xl mx-auto relative">
-          <div
-            className={`transition-all duration-700 delay-300 transform ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}
-          >
+          <div ref={contentRef}>
             <div className="prose prose-invert mx-auto mb-8 sm:mb-12">
               <p className="text-base sm:text-lg md:text-xl leading-relaxed text-sable-introspection mb-6 sm:mb-8">
                 Tu sais que ça ne peut plus durer.
@@ -103,10 +198,8 @@ export function ProblemAgitationSection() {
             </div>
 
             {/* Image du cycle de l'addiction - conditionnelle sur mobile */}
-            <div className={`${isMobile ? "max-h-[60vh] overflow-hidden" : ""}`}>
-              <div
-                className={`relative mx-auto max-w-full sm:max-w-2xl my-8 sm:my-16 transition-all duration-700 delay-500 transform ${isVisible ? "opacity-100 scale-100" : "opacity-0 scale-90"}`}
-              >
+            <div ref={imageRef} className={`${isMobile ? "max-h-[60vh] overflow-hidden" : ""}`}>
+              <div className="relative mx-auto max-w-full sm:max-w-2xl my-8 sm:my-16">
                 {/* Image */}
                 <div className="relative rounded-xl overflow-hidden shadow-lg border border-rouge-liberation/20">
                   <Image
@@ -187,9 +280,7 @@ export function ProblemAgitationSection() {
             </div>
           </div>
 
-          <div
-            className={`mt-8 sm:mt-16 text-center transition-all duration-700 delay-700 transform ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}
-          >
+          <div ref={ctaRef} className="mt-8 sm:mt-16 text-center">
             <Link
               href="#calendly"
               className="inline-block bg-[#C41E3A] hover:bg-[#C41E3A]/90 text-white font-bold py-3 sm:py-4 px-6 sm:px-8 rounded-lg shadow-lg transform transition duration-300 hover:translate-y-[-2px] border border-[#C41E3A]/50"

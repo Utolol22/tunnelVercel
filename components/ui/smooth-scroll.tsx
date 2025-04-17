@@ -1,6 +1,7 @@
 "use client"
 
 import { useEffect } from "react"
+import { applyBrowserSpecificFixes } from "@/lib/browser-detection"
 
 export function SmoothScroll() {
   useEffect(() => {
@@ -37,6 +38,9 @@ export function SmoothScroll() {
         }
       }
     }
+
+    // Appliquer les correctifs spécifiques aux navigateurs
+    applyBrowserSpecificFixes()
 
     // Ajouter l'écouteur d'événements
     document.body.addEventListener("click", handleSmoothScroll)

@@ -1,14 +1,38 @@
+"use client"
+import { motion } from "framer-motion"
+import { useInView } from "react-intersection-observer"
+import { containerVariants, fadeInVariants, slideUpVariants } from "@/lib/motionVariants"
+
 export function BenefitsSection() {
+  const [ref, inView] = useInView({
+    triggerOnce: true,
+    threshold: 0.1,
+  })
+
   return (
-    <section id="benefits" className="bg-[#F5E6D3] py-20 md:py-28 text-[#2A2A2A]">
+    <motion.section
+      ref={ref}
+      id="benefits"
+      className="bg-[#F5E6D3] py-20 md:py-28 text-[#2A2A2A]"
+      initial="hidden"
+      animate={inView ? "visible" : "hidden"}
+      exit="exit"
+      variants={containerVariants}
+    >
       <div className="container mx-auto px-4">
         <div className="benefits__content max-w-4xl mx-auto">
-          <h2 className="font-heading text-3xl md:text-4xl text-center mb-10 text-[#1A1A1A]">
+          <motion.h2
+            className="font-heading text-3xl md:text-4xl text-center mb-10 text-[#1A1A1A]"
+            variants={fadeInVariants}
+          >
             Pourquoi la Sobriété Devient Facile{" "}
             <span className="text-rouge-liberation">(Quand on Change de Regard)</span>
-          </h2>
+          </motion.h2>
 
-          <div className="text-base md:text-lg mb-12 md:mb-16 space-y-4 bg-blanc-purete p-6 rounded-lg shadow-md border border-gray-200">
+          <motion.div
+            className="text-base md:text-lg mb-12 md:mb-16 space-y-4 bg-blanc-purete p-6 rounded-lg shadow-md border border-gray-200"
+            variants={slideUpVariants}
+          >
             <p>
               Beaucoup pensent que ne plus boire est une lutte constante.
               <br />
@@ -44,9 +68,9 @@ export function BenefitsSection() {
               c'est de t'aider à atteindre cette clarté qui éteint le désir.
             </p>
             <p>Ensuite, la sobriété devient une évidence paisible.</p>
-          </div>
+          </motion.div>
         </div>
       </div>
-    </section>
+    </motion.section>
   )
 }
