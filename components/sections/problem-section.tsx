@@ -7,6 +7,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger"
 import { AlertCircle, RefreshCw, Lock } from "lucide-react"
 import { blurDataURLs } from "@/lib/image-blur"
 import { CTAButton } from "@/components/ui/cta-button"
+import { useMobile } from "@/hooks/use-mobile"
 
 // Enregistrer le plugin ScrollTrigger
 if (typeof window !== "undefined") {
@@ -20,124 +21,169 @@ export function ProblemAgitationSection() {
   const imageRef = useRef<HTMLDivElement>(null)
   const ctaRef = useRef<HTMLDivElement>(null)
 
-  const [isMobile, setIsMobile] = useState(false)
+  const isMobile = useMobile()
+  const [isContentVisible, setIsContentVisible] = useState(!isMobile)
 
-  // Vérification si on est sur mobile
+  // Effet pour assurer que le contenu est visible sur mobile
   useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth < 768)
+    // Forcer l'affichage du contenu après un court délai sur mobile
+    if (isMobile) {
+      const timer = setTimeout(() => {
+        setIsContentVisible(true)
+      }, 500)
+      return () => clearTimeout(timer)
     }
-
-    window.addEventListener("resize", checkMobile)
-    checkMobile() // Initialisation
-
-    return () => window.removeEventListener("resize", checkMobile)
-  }, [])
+  }, [isMobile])
 
   // Effet pour les animations GSAP
   useEffect(() => {
     // S'assurer que le code s'exécute uniquement côté client
     if (typeof window === "undefined") return
 
-    // Animation pour le titre
-    if (titleRef.current) {
-      gsap.fromTo(
-        titleRef.current,
-        {
-          y: 30,
-          opacity: 0,
-        },
-        {
-          y: 0,
+    // Sur mobile, on simplifie les animations
+    if (isMobile) {
+      // Animation simplifiée pour le titre
+      if (titleRef.current) {
+        gsap.to(titleRef.current, {
           opacity: 1,
-          duration: isMobile ? 0.4 : 0.8,
-          ease: "power2.out",
-          scrollTrigger: {
-            trigger: sectionRef.current,
-            start: isMobile ? "top 95%" : "top 80%",
-            end: isMobile ? "top 70%" : "top 50%",
-            scrub: isMobile ? false : 1,
-          },
-        },
-      )
-    }
-
-    // Animation pour le contenu textuel
-    const bulletPoints = contentRef.current?.querySelectorAll(".problem-bullet")
-    if (bulletPoints) {
-      gsap.fromTo(
-        bulletPoints,
-        {
-          y: isMobile ? 20 : 40,
-          opacity: 0,
-        },
-        {
           y: 0,
-          opacity: 1,
-          stagger: isMobile ? 0.05 : 0.1,
-          duration: isMobile ? 0.4 : 0.8,
-          ease: "power2.out",
-          scrollTrigger: {
-            trigger: contentRef.current,
-            start: isMobile ? "top 90%" : "top 80%",
-            end: isMobile ? "bottom 70%" : "bottom 50%",
-            scrub: isMobile ? false : 1,
-          },
-        },
-      )
-    }
+          duration: 0.3,
+          ease: "power1.out",
+        })
+      }
 
-    // Animation pour l'image
-    if (imageRef.current) {
-      gsap.fromTo(
-        imageRef.current,
-        {
-          scale: isMobile ? 0.95 : 0.9,
-          opacity: 0,
-        },
-        {
+      // Animation simplifiée pour les bullet points
+      const bulletPoints = contentRef.current?.querySelectorAll(".problem-bullet")
+      if (bulletPoints) {
+        gsap.to(bulletPoints, {
+          opacity: 1,
+          y: 0,
+          stagger: 0.1,
+          duration: 0.3,
+          ease: "power1.out",
+        })
+      }
+
+      // Animation simplifiée pour l'image
+      if (imageRef.current) {
+        gsap.to(imageRef.current, {
+          opacity: 1,
           scale: 1,
-          opacity: 1,
-          duration: isMobile ? 0.5 : 1,
-          ease: "power2.out",
-          scrollTrigger: {
-            trigger: imageRef.current,
-            start: isMobile ? "top 90%" : "top 80%",
-            end: isMobile ? "top 60%" : "top 30%",
-            scrub: isMobile ? false : 1,
-          },
-        },
-      )
-    }
+          duration: 0.3,
+          ease: "power1.out",
+        })
+      }
 
-    // Animation pour le CTA
-    if (ctaRef.current) {
-      gsap.fromTo(
-        ctaRef.current,
-        {
-          y: isMobile ? 10 : 20,
-          opacity: 0,
-        },
-        {
-          y: 0,
+      // Animation simplifiée pour le CTA
+      if (ctaRef.current) {
+        gsap.to(ctaRef.current, {
           opacity: 1,
-          duration: isMobile ? 0.3 : 0.6,
-          ease: "power2.out",
-          scrollTrigger: {
-            trigger: ctaRef.current,
-            start: isMobile ? "top 95%" : "top 90%",
-            end: isMobile ? "top 80%" : "top 70%",
-            scrub: isMobile ? false : 1,
+          y: 0,
+          duration: 0.3,
+          ease: "power1.out",
+        })
+      }
+    } else {
+      // Animation pour le titre sur desktop
+      if (titleRef.current) {
+        gsap.fromTo(
+          titleRef.current,
+          {
+            y: 30,
+            opacity: 0,
           },
-        },
-      )
+          {
+            y: 0,
+            opacity: 1,
+            duration: 0.8,
+            ease: "power2.out",
+            scrollTrigger: {
+              trigger: sectionRef.current,
+              start: "top 80%",
+              end: "top 50%",
+              scrub: 1,
+            },
+          },
+        )
+      }
+
+      // Animation pour le contenu textuel sur desktop
+      const bulletPoints = contentRef.current?.querySelectorAll(".problem-bullet")
+      if (bulletPoints) {
+        gsap.fromTo(
+          bulletPoints,
+          {
+            y: 40,
+            opacity: 0,
+          },
+          {
+            y: 0,
+            opacity: 1,
+            stagger: 0.1,
+            duration: 0.8,
+            ease: "power2.out",
+            scrollTrigger: {
+              trigger: contentRef.current,
+              start: "top 80%",
+              end: "bottom 50%",
+              scrub: 1,
+            },
+          },
+        )
+      }
+
+      // Animation pour l'image sur desktop
+      if (imageRef.current) {
+        gsap.fromTo(
+          imageRef.current,
+          {
+            scale: 0.9,
+            opacity: 0,
+          },
+          {
+            scale: 1,
+            opacity: 1,
+            duration: 1,
+            ease: "power2.out",
+            scrollTrigger: {
+              trigger: imageRef.current,
+              start: "top 80%",
+              end: "top 30%",
+              scrub: 1,
+            },
+          },
+        )
+      }
+
+      // Animation pour le CTA sur desktop
+      if (ctaRef.current) {
+        gsap.fromTo(
+          ctaRef.current,
+          {
+            y: 20,
+            opacity: 0,
+          },
+          {
+            y: 0,
+            opacity: 1,
+            duration: 0.6,
+            ease: "power2.out",
+            scrollTrigger: {
+              trigger: ctaRef.current,
+              start: "top 90%",
+              end: "top 70%",
+              scrub: 1,
+            },
+          },
+        )
+      }
     }
 
     // Nettoyage des animations lors du démontage du composant
     return () => {
       ScrollTrigger.getAll().forEach((trigger) => trigger.kill())
     }
-  }, [])
+  }, [isMobile])
 
   return (
     <section
@@ -160,7 +206,11 @@ export function ProblemAgitationSection() {
       <div className="container relative z-10">
         {/* Titre */}
         <div className="mb-12 text-center relative pt-4">
-          <h2 ref={titleRef} className="text-2xl sm:text-3xl lg:text-4xl font-bold relative">
+          <h2
+            ref={titleRef}
+            className={`text-2xl sm:text-3xl lg:text-4xl font-bold relative ${isMobile ? "opacity-100" : "opacity-0"}`}
+            style={{ transform: isMobile ? "none" : "translateY(30px)" }}
+          >
             T'en as marre ?{" "}
             <span className="text-[#C41E3A] relative">
               Tu ne veux plus continuer comme ça ?
@@ -170,10 +220,13 @@ export function ProblemAgitationSection() {
         </div>
 
         {/* Contenu simplifié avec 3 bullets */}
-        <div ref={contentRef} className="relative mt-4 sm:mt-8">
+        <div ref={contentRef} className={`relative mt-4 sm:mt-8 ${isContentVisible ? "opacity-100" : "opacity-0"}`}>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 w-full gap-8 mb-12">
             {/* Bullet 1 */}
-            <div className="problem-bullet bg-noir-profond/50 p-6 rounded-lg border-l-4 border-rouge-liberation shadow-lg">
+            <div
+              className="problem-bullet bg-noir-profond/50 p-6 rounded-lg border-l-4 border-rouge-liberation shadow-lg"
+              style={{ opacity: isMobile ? 1 : 0, transform: isMobile ? "none" : "translateY(40px)" }}
+            >
               <div className="flex items-start mb-4">
                 <RefreshCw className="w-8 h-8 text-rouge-liberation mr-3 flex-shrink-0" />
                 <h3 className="text-xl font-semibold">Quelques jours de sobriété, puis la rechute ?</h3>
@@ -185,7 +238,10 @@ export function ProblemAgitationSection() {
             </div>
 
             {/* Bullet 2 */}
-            <div className="problem-bullet bg-noir-profond/50 p-6 rounded-lg border-l-4 border-rouge-liberation shadow-lg">
+            <div
+              className="problem-bullet bg-noir-profond/50 p-6 rounded-lg border-l-4 border-rouge-liberation shadow-lg"
+              style={{ opacity: isMobile ? 1 : 0, transform: isMobile ? "none" : "translateY(40px)" }}
+            >
               <div className="flex items-start mb-4">
                 <Lock className="w-8 h-8 text-rouge-liberation mr-3 flex-shrink-0" />
                 <h3 className="text-xl font-semibold">La peur de l'inconnu te fige ?</h3>
@@ -197,7 +253,10 @@ export function ProblemAgitationSection() {
             </div>
 
             {/* Bullet 3 */}
-            <div className="problem-bullet bg-noir-profond/50 p-6 rounded-lg border-l-4 border-rouge-liberation shadow-lg">
+            <div
+              className="problem-bullet bg-noir-profond/50 p-6 rounded-lg border-l-4 border-rouge-liberation shadow-lg"
+              style={{ opacity: isMobile ? 1 : 0, transform: isMobile ? "none" : "translateY(40px)" }}
+            >
               <div className="flex items-start mb-4">
                 <AlertCircle className="w-8 h-8 text-rouge-liberation mr-3 flex-shrink-0" />
                 <h3 className="text-xl font-semibold">La volonté seule ne suffit plus ?</h3>
@@ -213,6 +272,7 @@ export function ProblemAgitationSection() {
           <div
             ref={imageRef}
             className={`${isMobile ? "max-h-[60vh] overflow-hidden" : ""} mb-12 flex justify-center w-full`}
+            style={{ opacity: isMobile ? 1 : 0, transform: isMobile ? "none" : "scale(0.9)" }}
           >
             <div className="relative max-w-full sm:max-w-2xl">
               {/* Image */}
@@ -242,7 +302,11 @@ export function ProblemAgitationSection() {
           </div>
 
           {/* CTA avec effet de halo ajusté */}
-          <div ref={ctaRef} className="flex justify-center w-full mt-8 mb-12">
+          <div
+            ref={ctaRef}
+            className="flex justify-center w-full mt-8 mb-12"
+            style={{ opacity: isMobile ? 1 : 0, transform: isMobile ? "none" : "translateY(20px)" }}
+          >
             <div className="relative inline-block max-w-md">
               {/* Effet de halo ajusté */}
               <div
