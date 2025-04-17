@@ -3,6 +3,7 @@
 import type React from "react"
 import { useState } from "react"
 import { ChevronDown } from "lucide-react"
+import Link from "next/link"
 
 interface FaqItemProps {
   question: string
@@ -35,25 +36,23 @@ const FaqItem: React.FC<FaqItemProps> = ({ question, answer, isOpen, onClick }) 
 }
 
 export function FaqSection() {
-  const [openIndex, setOpenIndex] = useState<number | null>(null)
+  const [openIndex, setOpenIndex] = useState<number | null>(0)
 
   const handleToggle = (index: number) => {
     setOpenIndex(openIndex === index ? null : index)
   }
 
-  const faqData = [
+  // Seulement les 3 questions les plus importantes
+  const mainFaqData = [
     {
       question: "Est-ce que ce programme me convient si je ne veux pas arrêter complètement l'alcool ?",
       answer: (
         <>
           <p>
             Mon approche est conçue pour ceux qui visent un <strong>arrêt complet et définitif</strong>.<br />
-            Pourquoi ? Parce que mon expérience, et celle de nombreuses personnes que j'accompagne, montre que la
-            modération est souvent une forme de lutte déguisée.
-            <br />
             L'objectif ici est d'atteindre une <strong>liberté totale</strong>, ce qui passe par l'arrêt.
             <br />
-            Si votre objectif est uniquement de réduire, ce programme n'est probablement pas le plus adapté.
+            Si ton objectif est uniquement de réduire, ce programme n'est probablement pas le plus adapté.
           </p>
         </>
       ),
@@ -66,23 +65,7 @@ export function FaqSection() {
             Il s'agit d'un accompagnement <strong>individuel et personnalisé</strong>.<br />
             Nos séances (généralement hebdomadaires au début) se font en visioconférence.
             <br />
-            C'est un espace d'échange sécurisé, pour identifier et déconstruire les croyances limitantes,
-            <br />
-            comprendre les déclencheurs, et avancer avec des outils concrets.
-          </p>
-        </>
-      ),
-    },
-    {
-      question: "Est-ce que ma participation reste confidentielle ?",
-      answer: (
-        <>
-          <p>
-            <strong>Absolument.</strong>
-            <br />
-            La confidentialité est totale et primordiale.
-            <br />
-            Tout ce qui est dit reste strictement entre nous.
+            C'est un espace d'échange sécurisé, pour identifier et déconstruire les croyances limitantes.
           </p>
         </>
       ),
@@ -100,54 +83,21 @@ export function FaqSection() {
         </>
       ),
     },
-    {
-      question: "Est-ce que je peux bénéficier d'un remboursement si le programme ne me convient pas ?",
-      answer: (
-        <>
-          <p>
-            L'engagement est important pour la réussite.
-            <br />
-            L'appel "État des Lieux" permet de s'assurer que l'approche te convient.
-            <br />
-            Une fois engagé(e), l'investissement est pour la durée convenue.
-            <br />
-            Mais s'il y a un souci majeur, on en discute <strong>en toute transparence</strong>.
-          </p>
-        </>
-      ),
-    },
-    {
-      question: "Faut-il avoir des connaissances ou une préparation ?",
-      answer: (
-        <>
-          <p>
-            <strong>Aucune.</strong>
-            <br />
-            Viens comme tu es.
-            <br />
-            Ce qu'il faut, c'est une <strong>volonté sincère d'arrêter</strong>,<br />
-            et une <strong>ouverture d'esprit</strong> pour explorer des perspectives nouvelles.
-          </p>
-        </>
-      ),
-    },
   ]
 
   return (
     <section id="faq" className="bg-[#F5E6D3] py-20 md:py-28">
       <div className="container mx-auto px-4">
         <div className="faq__content max-w-3xl mx-auto">
-          <h2 className="font-heading text-3xl md:text-4xl text-center mb-6 text-noir-profond">
-            Foire Aux Questions (FAQ)
-          </h2>
+          <h2 className="font-heading text-3xl md:text-4xl text-center mb-6 text-noir-profond">Questions fréquentes</h2>
           <p className="text-center text-base md:text-lg text-gris-sagesse mb-10 md:mb-12">
             <strong>
-              Vous avez des questions ? C'est parfaitement normal. Voici quelques réponses aux interrogations fréquentes
-              :
+              Tu as des questions ? C'est parfaitement normal. Voici quelques réponses aux interrogations les plus
+              courantes :
             </strong>
           </p>
           <div className="faq__list bg-blanc-purete p-6 md:p-8 rounded-lg shadow-lg border border-gray-200">
-            {faqData.map((item, index) => (
+            {mainFaqData.map((item, index) => (
               <FaqItem
                 key={index}
                 question={item.question}
@@ -156,6 +106,15 @@ export function FaqSection() {
                 onClick={() => handleToggle(index)}
               />
             ))}
+
+            <div className="mt-8 text-center">
+              <Link
+                href="/faq-complete"
+                className="inline-block text-rouge-liberation hover:text-rouge-liberation/80 font-medium underline"
+              >
+                Voir toutes les questions
+              </Link>
+            </div>
           </div>
         </div>
       </div>

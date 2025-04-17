@@ -3,6 +3,7 @@ import Image from "next/image"
 import { motion } from "framer-motion"
 import { useInView } from "react-intersection-observer"
 import { containerVariants, fadeInVariants, slideUpVariants, scaleVariants } from "@/lib/motionVariants"
+import { blurDataURLs } from "@/lib/image-blur"
 
 export function FutureVisionSection() {
   const [ref, inView] = useInView({
@@ -14,7 +15,7 @@ export function FutureVisionSection() {
     <motion.section
       ref={ref}
       id="future-vision"
-      className="bg-[#F5E6D3] py-20 md:py-28 text-[#2A2A2A]"
+      className="bg-[#F5E6D3] py-20 sm:py-24 lg:py-28 text-[#2A2A2A]"
       initial="hidden"
       animate={inView ? "visible" : "hidden"}
       exit="exit"
@@ -23,7 +24,7 @@ export function FutureVisionSection() {
       <div className="container mx-auto px-4">
         <div className="future-vision__content max-w-4xl mx-auto">
           <motion.h2
-            className="font-heading text-3xl md:text-4xl text-center mb-10 text-[#1A1A1A]"
+            className="font-heading text-3xl sm:text-3xl lg:text-4xl text-center mb-10 text-[#1A1A1A]"
             variants={fadeInVariants}
           >
             Imagine-toi dans un an.
@@ -36,12 +37,15 @@ export function FutureVisionSection() {
               width={1200}
               height={800}
               className="w-full"
+              sizes="(max-width: 640px) 80vw, (max-width: 1024px) 60vw, 50vw)"
+              placeholder="blur"
+              blurDataURL={blurDataURLs["liberation"]}
             />
             <div className="absolute inset-0 bg-gradient-to-t from-[#F5E6D3]/30 to-transparent"></div>
           </motion.div>
 
           <motion.div
-            className="text-base md:text-lg space-y-4 bg-blanc-purete p-6 rounded-lg shadow-md border border-gray-200"
+            className="text-base sm:text-lg space-y-4 bg-blanc-purete p-6 rounded-lg shadow-md border border-gray-200"
             variants={slideUpVariants}
           >
             <p>

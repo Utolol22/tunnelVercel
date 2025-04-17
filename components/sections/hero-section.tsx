@@ -6,6 +6,7 @@ import { ArrowRight } from "lucide-react"
 import Image from "next/image"
 import gsap from "gsap"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
+import { blurDataURLs } from "@/lib/image-blur"
 
 // Enregistrer le plugin ScrollTrigger
 if (typeof window !== "undefined") {
@@ -41,7 +42,6 @@ export function HeroSection() {
             start: "top 80%",
             end: "top 30%",
             scrub: 1,
-            // markers: true, // Utile pour le débogage
           },
         },
       )
@@ -102,6 +102,10 @@ export function HeroSection() {
                   width={320}
                   height={320}
                   className="object-cover w-full h-full"
+                  sizes="(max-width: 640px) 80vw, (max-width: 1024px) 60vw, 50vw"
+                  priority
+                  placeholder="blur"
+                  blurDataURL={blurDataURLs["pierre-portrait"]}
                 />
               </div>
             </div>
@@ -109,28 +113,21 @@ export function HeroSection() {
 
           {/* Contenu textuel */}
           <div ref={contentRef} className="hero__content flex-1 max-w-2xl text-center md:text-left">
-            <p className="text-sm md:text-base text-sable-introspection mb-2">Jour 0 : Le début du vrai changement</p>
-            <h1 className="text-blanc-purete text-4xl md:text-6xl font-bold mb-6 leading-tight tracking-tight">
-              LIBÈRE-TOI
-              <br />
-              DE L'ALCOOL
+            <p className="text-sm sm:text-base text-sable-introspection mb-2">Jour 0 : Le début du vrai changement</p>
+            <h1 className="text-blanc-purete text-3xl sm:text-4xl lg:text-5xl font-bold mb-6 leading-tight tracking-tight">
+              Et si cesser de boire ne tenait pas à la volonté, mais à la compréhension ?
             </h1>
-            <p className="hero__subtitle text-lg md:text-xl mb-3">
-              Tu veux arrêter de boire mais tu sais que la simple volonté
-              <br />
-              ne suffit pas?
-            </p>
-            <p className="hero__description text-base md:text-lg text-sable-introspection mb-8">
-              Découvre comment sortir du cycle sans lutte.
+            <p className="hero__subtitle text-lg sm:text-xl mb-6">
+              Découvre comment sortir du cycle sans lutte et retrouver ta liberté.
             </p>
             <div className="hero__cta">
-              <Link href="#calendly">
+              <Link href="#solution">
                 <Button
                   variant="default"
                   size="lg"
                   className="bg-rouge-liberation hover:bg-rouge-liberation/90 text-white px-6 py-3 rounded-md font-medium"
                 >
-                  J'APPELLE PIERRE
+                  Découvrir la clé
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </Button>
               </Link>

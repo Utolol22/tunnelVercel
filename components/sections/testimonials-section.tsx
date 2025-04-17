@@ -3,7 +3,10 @@ import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { motion } from "framer-motion"
 import { useInView } from "react-intersection-observer"
-import { containerVariants, fadeInVariants, listContainerVariants, listItemVariants } from "@/lib/motionVariants"
+import { containerVariants, fadeInVariants } from "@/lib/motionVariants"
+import { useState } from "react"
+import { ChevronLeft, ChevronRight } from "lucide-react"
+import Image from "next/image"
 
 export function TestimonialsSection() {
   const [ref, inView] = useInView({
@@ -11,11 +14,42 @@ export function TestimonialsSection() {
     threshold: 0.1,
   })
 
+  const testimonials = [
+    {
+      id: 1,
+      quote: "Avant de travailler avec Pierre, j'étais désespérée. Aujourd'hui, je suis libre et sereine.",
+      author: "Julie, 34 ans - Paris",
+      image: "/img/placeholder.svg?height=200&width=200",
+    },
+    {
+      id: 2,
+      quote: "Sa méthode m'a permis de comprendre mes émotions et de sortir du cycle infernal de l'alcool.",
+      author: "Marc, 42 ans - Lyon",
+      image: "/img/placeholder.svg?height=200&width=200",
+    },
+    {
+      id: 3,
+      quote: "Deux ans après, ma sobriété est naturelle. Ce n'est plus un combat, mais ma nouvelle façon de vivre.",
+      author: "Sophie, 39 ans - Bordeaux",
+      image: "/img/placeholder.svg?height=200&width=200",
+    },
+  ]
+
+  const [activeIndex, setActiveIndex] = useState(0)
+
+  const nextTestimonial = () => {
+    setActiveIndex((prev) => (prev === testimonials.length - 1 ? 0 : prev + 1))
+  }
+
+  const prevTestimonial = () => {
+    setActiveIndex((prev) => (prev === 0 ? testimonials.length - 1 : prev - 1))
+  }
+
   return (
     <motion.section
       ref={ref}
       id="testimonials"
-      className="bg-noir-profond text-blanc-purete py-20 md:py-28"
+      className="bg-noir-profond text-blanc-purete py-20 sm:py-24 lg:py-28"
       initial="hidden"
       animate={inView ? "visible" : "hidden"}
       exit="exit"
@@ -24,70 +58,79 @@ export function TestimonialsSection() {
       <div className="container mx-auto px-4">
         <div className="testimonials__content max-w-5xl mx-auto">
           <motion.h2
-            className="text-center mb-12 text-yellow-400 text-3xl md:text-4xl font-bold"
+            className="text-center mb-12 text-yellow-400 text-3xl sm:text-3xl lg:text-4xl font-bold"
             variants={fadeInVariants}
           >
-            Ne me croyez pas sur parole, écoutez ceux qui ont transformé leur vie :
+            Ils ont transformé leur vie :
           </motion.h2>
 
-          <motion.div
-            className="testimonials__grid grid grid-cols-1 md:grid-cols-3 gap-8 mb-16"
-            variants={listContainerVariants}
-          >
-            <motion.div
-              className="testimonial bg-white/5 rounded-lg overflow-hidden transition-transform hover:-translate-y-2"
-              variants={listItemVariants}
-            >
-              <div className="testimonial__image h-52 overflow-hidden relative bg-gray-700 flex items-center justify-center">
-                <p className="text-white text-sm text-center p-4">Photo du témoignage 1</p>
+          {/* Slider de témoignages */}
+          <motion.div className="relative max-w-3xl mx-auto mb-16" variants={fadeInVariants}>
+            <div className="overflow-hidden">
+              <div
+                className="flex transition-transform duration-500 ease-in-out"
+                style={{ transform: `translateX(-${activeIndex * 100}%)` }}
+              >
+                {testimonials.map((testimonial) => (
+                  <div key={testimonial.id} className="w-full flex-shrink-0 px-4">
+                    <div className="bg-white/5 rounded-lg overflow-hidden shadow-lg">
+                      <div className="p-6 flex flex-col items-center">
+                        <div className="w-24 h-24 rounded-full overflow-hidden mb-6 border-2 border-yellow-400">
+                          <Image
+                            src={testimonial.image || "/placeholder.svg"}
+                            alt={testimonial.author}
+                            width={96}
+                            height={96}
+                            className="w-full h-full object-cover"
+                            sizes="96px"
+                            placeholder="blur"
+                            blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAb/xAAhEAACAQIGAwAAAAAAAAAAAAABAgMABAUGESEHEhMxUf/EABUBAQEAAAAAAAAAAAAAAAAAAAAB/8QAFBEBAAAAAAAAAAAAAAAAAAAAAP/aAAwDAQACEQMRAD8AmeMuJLzT1nLa6XuSNFJLbxnqgLe9j8qiiiA//9k="
+                          />
+                        </div>
+                        <p className="text-xl italic mb-4 text-center">{testimonial.quote}</p>
+                        <p className="text-yellow-400 font-bold text-center">{testimonial.author}</p>
+                      </div>
+                    </div>
+                  </div>
+                ))}
               </div>
-              <div className="testimonial__text p-8">
-                <p className="testimonial__quote text-base italic mb-6 leading-relaxed">
-                  "Avant de travailler avec Pierre, j'étais désespérée. J'avais tout essayé. Aujourd'hui, je ne me
-                  reconnais plus : je suis libre, sereine et je reconstruis ma vie. Merci Pierre !"
-                </p>
-                <p className="testimonial__author text-yellow-400 font-bold text-right">Julie, 34 ans - Paris</p>
-              </div>
-            </motion.div>
+            </div>
 
-            <motion.div
-              className="testimonial bg-white/5 rounded-lg overflow-hidden transition-transform hover:-translate-y-2"
-              variants={listItemVariants}
+            {/* Contrôles du slider */}
+            <button
+              onClick={prevTestimonial}
+              className="absolute top-1/2 left-0 -translate-y-1/2 -translate-x-4 bg-noir-profond/80 text-blanc-purete rounded-full p-2 hover:bg-rouge-liberation/80 transition-colors"
+              aria-label="Témoignage précédent"
             >
-              <div className="testimonial__image h-52 overflow-hidden relative bg-gray-700 flex items-center justify-center">
-                <p className="text-white text-sm text-center p-4">Photo du témoignage 2</p>
-              </div>
-              <div className="testimonial__text p-8">
-                <p className="testimonial__quote text-base italic mb-6 leading-relaxed">
-                  "La méthode de Pierre m'a permis de comprendre enfin mes émotions et de sortir du cycle infernal de
-                  l'alcool. Sa douceur et sa bienveillance ont fait toute la différence dans mon parcours."
-                </p>
-                <p className="testimonial__author text-yellow-400 font-bold text-right">Marc, 42 ans - Lyon</p>
-              </div>
-            </motion.div>
+              <ChevronLeft size={24} />
+            </button>
+            <button
+              onClick={nextTestimonial}
+              className="absolute top-1/2 right-0 -translate-y-1/2 translate-x-4 bg-noir-profond/80 text-blanc-purete rounded-full p-2 hover:bg-rouge-liberation/80 transition-colors"
+              aria-label="Témoignage suivant"
+            >
+              <ChevronRight size={24} />
+            </button>
 
-            <motion.div
-              className="testimonial bg-white/5 rounded-lg overflow-hidden transition-transform hover:-translate-y-2"
-              variants={listItemVariants}
-            >
-              <div className="testimonial__image h-52 overflow-hidden relative bg-gray-700 flex items-center justify-center">
-                <p className="text-white text-sm text-center p-4">Photo du témoignage 3</p>
-              </div>
-              <div className="testimonial__text p-8">
-                <p className="testimonial__quote text-base italic mb-6 leading-relaxed">
-                  "Deux ans après avoir suivi ce programme, je peux confirmer que ma sobriété est devenue naturelle. Ce
-                  n'est plus un combat quotidien, mais simplement ma nouvelle façon de vivre, plus épanouie et
-                  authentique."
-                </p>
-                <p className="testimonial__author text-yellow-400 font-bold text-right">Sophie, 39 ans - Bordeaux</p>
-              </div>
-            </motion.div>
+            {/* Indicateurs */}
+            <div className="flex justify-center mt-6 space-x-2">
+              {testimonials.map((_, index) => (
+                <button
+                  key={index}
+                  onClick={() => setActiveIndex(index)}
+                  className={`w-3 h-3 rounded-full ${
+                    activeIndex === index ? "bg-yellow-400" : "bg-white/30"
+                  } transition-colors`}
+                  aria-label={`Aller au témoignage ${index + 1}`}
+                />
+              ))}
+            </div>
           </motion.div>
 
-          <motion.div className="testimonials__cta text-center" variants={fadeInVariants}>
+          <motion.div className="text-center" variants={fadeInVariants}>
             <Link href="#calendly">
               <Button variant="default" size="lg">
-                Je veux obtenir les mêmes résultats
+                Voir tous les retours
               </Button>
             </Link>
           </motion.div>

@@ -1,4 +1,5 @@
 import Image from "next/image"
+import { blurDataURLs } from "@/lib/image-blur"
 
 export function LiberationSection() {
   return (
@@ -8,7 +9,7 @@ export function LiberationSection() {
 
       <div className="container mx-auto px-4 relative z-10">
         <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-3xl md:text-4xl font-bold mb-8 text-[#1A1A1A]">Une nouvelle vie t'attend</h2>
+          <h2 className="text-3xl sm:text-3xl lg:text-4xl font-bold mb-8 text-[#1A1A1A]">Une nouvelle vie t'attend</h2>
 
           <div className="relative rounded-xl overflow-hidden shadow-xl mb-10">
             <Image
@@ -17,6 +18,9 @@ export function LiberationSection() {
               width={1200}
               height={800}
               className="w-full"
+              sizes="(max-width: 640px) 80vw, (max-width: 1024px) 60vw, 50vw"
+              placeholder="blur"
+              blurDataURL={blurDataURLs["liberation"]}
             />
             <div className="absolute inset-0 bg-gradient-to-t from-[#F5E6D3]/30 to-transparent"></div>
           </div>

@@ -9,6 +9,7 @@ export function CallToActionSection() {
   const [isClient, setIsClient] = useState(false)
   // État pour animer le CTA
   const [ctaHighlighted, setCtaHighlighted] = useState(false)
+  const [isSticky, setIsSticky] = useState(false)
 
   useEffect(() => {
     setIsClient(true)
@@ -17,6 +18,13 @@ export function CallToActionSection() {
     const handleScroll = () => {
       const scrollPosition = window.scrollY
       const ctaSection = document.getElementById("cta-highlight-zone")
+
+      // Gérer le CTA sticky
+      if (scrollPosition > 500) {
+        setIsSticky(true)
+      } else {
+        setIsSticky(false)
+      }
 
       if (ctaSection) {
         const ctaSectionRect = ctaSection.getBoundingClientRect()
@@ -42,14 +50,14 @@ export function CallToActionSection() {
   }, [])
 
   return (
-    <section id="call-to-action" className="bg-blanc-purete py-20 md:py-28">
+    <section id="calendly" className="bg-blanc-purete py-20 md:py-28">
       <div className="container mx-auto">
-        <div className="cta__content max-w-3xl mx-auto text-center">
+        <div className="calendly__content max-w-3xl mx-auto text-center">
           <h2 className="font-heading text-3xl md:text-4xl text-rouge-liberation mb-10 md:mb-12 flex items-center justify-center gap-3">
             <Gift className="h-8 w-8" />
             Prends un vrai temps pour toi. Gratuitement.
           </h2>
-          <div className="cta__intro text-base md:text-lg text-gris-sagesse mb-10 max-w-3xl mx-auto space-y-4 text-left">
+          <div className="calendly__intro text-base md:text-lg text-gris-sagesse mb-10 max-w-3xl mx-auto space-y-4 text-left">
             <p>Peut-être que tu m'as découvert sur YouTube, que mon parcours résonne avec le tien...</p>
             <p>
               Ce premier appel, c'est notre <strong>"état des lieux"</strong>.
@@ -100,10 +108,10 @@ export function CallToActionSection() {
                 animation="pulse"
                 roundness="lg"
                 fullWidthMobile={true}
-                className="shadow-cta relative z-10 px-8 uppercase font-semibold tracking-wide bg-rouge-liberation hover:bg-rouge-liberation/90 text-white"
+                className="shadow-cta relative z-10 px-8 uppercase font-semibold tracking-wide"
               >
                 <Phone className="mr-3 h-5 w-5" />
-                Réserver ma session gratuite avec Pierre
+                Réserve ton appel offert
                 <ArrowRight className="ml-3 h-5 w-5 transition-transform group-hover:translate-x-1" />
               </Button>
             </Link>
@@ -133,6 +141,22 @@ export function CallToActionSection() {
           </div>
         </div>
       </div>
+
+      {/* Sticky CTA */}
+      {isSticky && (
+        <div className="fixed bottom-6 right-6 z-50 transition-all duration-300 transform translate-y-0">
+          <Link href="#calendly-widget">
+            <Button
+              variant="primary"
+              size="lg"
+              className="shadow-lg bg-rouge-liberation hover:bg-rouge-liberation/90 text-white"
+            >
+              <Phone className="mr-2 h-5 w-5" />
+              Réserve ton appel
+            </Button>
+          </Link>
+        </div>
+      )}
     </section>
   )
 }

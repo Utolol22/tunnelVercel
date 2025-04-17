@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 import { HeroSection } from "@/components/sections/hero-section"
 import { ProblemAgitationSection } from "@/components/sections/problem-section"
 import { SolutionSection } from "@/components/sections/solution-section"
@@ -20,6 +20,8 @@ import { VideoSection } from "@/components/sections/video-section"
 import { SmoothScroll } from "@/components/ui/smooth-scroll"
 
 export default function Home() {
+  const [snapEnabled, setSnapEnabled] = useState(false)
+
   // Effet pour charger Calendly
   useEffect(() => {
     // Check if script already exists to prevent duplicates
@@ -30,9 +32,13 @@ export default function Home() {
       document.body.appendChild(script)
     }
 
-    // Effet pour désactiver le scroll snapping pendant le chargement de la page
+    // Effet pour activer le scroll snapping après un délai
     const enableSnapAfterLoad = () => {
-      document.documentElement.classList.add("snap-enabled")
+      // Attendre que la page soit complètement chargée
+      setTimeout(() => {
+        document.documentElement.classList.add("snap-enabled")
+        setSnapEnabled(true)
+      }, 1000) // Délai de 1 seconde pour s'assurer que tout est chargé
     }
 
     // Activer le snap après le chargement complet
@@ -42,13 +48,31 @@ export default function Home() {
       window.addEventListener("load", enableSnapAfterLoad)
     }
 
+    // Fonction pour désactiver temporairement le snap lors du défilement manuel
+    const handleUserScroll = () => {
+      // Désactiver le snap pendant le défilement
+      document.documentElement.classList.remove("snap-enabled")
+
+      // Réactiver après la fin du défilement
+      clearTimeout(window.scrollTimeout)
+      window.scrollTimeout = setTimeout(() => {
+        document.documentElement.classList.add("snap-enabled")
+      }, 1000)
+    }
+
+    window.addEventListener("scroll", handleUserScroll)
+
     return () => {
       window.removeEventListener("load", enableSnapAfterLoad)
+      window.removeEventListener("scroll", handleUserScroll)
     }
   }, [])
 
+  // Fonction pour vérifier si on est sur mobile
+  const isMobile = typeof window !== "undefined" ? window.innerWidth < 768 : false
+
   return (
-    <main className="min-h-screen snap-mandatory">
+    <main className={`min-h-screen ${snapEnabled && !isMobile ? "snap-mandatory" : ""}`}>
       <SmoothScroll />
       <HeroSection />
       <VideoSection />

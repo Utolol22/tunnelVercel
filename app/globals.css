@@ -78,10 +78,10 @@
     box-shadow: 0 10px 25px -5px rgba(196, 30, 58, 0.3);
   }
 
-  /* Scroll Snapping */
+  /* Scroll Snapping - MODIFIÉ pour être moins strict */
   html,
   body {
-    scroll-snap-type: y mandatory;
+    scroll-snap-type: y proximity; /* Changé de 'mandatory' à 'proximity' pour un comportement plus souple */
     scroll-behavior: smooth;
     height: 100%;
     overflow-y: auto;
@@ -94,6 +94,7 @@
     min-height: 100vh;
     position: relative;
     overflow: hidden;
+    scroll-margin-top: 80px; /* Ajout d'une marge pour tenir compte du header */
   }
 
   /* Ajustement pour le header fixe */
@@ -257,4 +258,9 @@ header nav a.active::after {
   height: auto !important;
   padding-top: 4rem;
   padding-bottom: 4rem;
+}
+
+/* Ajout d'une classe pour désactiver temporairement le snap pendant les animations */
+.animating {
+  scroll-snap-type: none !important;
 }
