@@ -143,7 +143,7 @@ export function ProblemAgitationSection() {
     <section
       ref={sectionRef}
       id="problem"
-      className="relative snap-section text-white overflow-hidden pt-36 sm:pt-40 pb-20 flex items-center"
+      className="relative snap-section text-white overflow-hidden pt-16 sm:pt-24 md:pt-36 pb-20 flex items-center"
     >
       {/* Arrière-plan simplifié qui s'aligne avec la HeroSection */}
       <div className="absolute inset-0 bg-gradient-to-b from-noir-profond to-[#0A0000] z-0"></div>
@@ -170,7 +170,7 @@ export function ProblemAgitationSection() {
         </div>
 
         {/* Contenu simplifié avec 3 bullets */}
-        <div ref={contentRef} className="max-w-4xl mx-auto relative">
+        <div ref={contentRef} className="max-w-4xl mx-auto relative mt-4 sm:mt-8">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
             {/* Bullet 1 */}
             <div className="problem-bullet bg-noir-profond/50 p-6 rounded-lg border-l-4 border-rouge-liberation shadow-lg">

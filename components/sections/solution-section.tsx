@@ -64,7 +64,7 @@ export function SolutionSection() {
     <section
       ref={sectionRef}
       id="solution"
-      className="bg-[#F5E6D3] py-20 md:py-28 text-[#2A2A2A] snap-section flex items-center"
+      className="bg-[#F5E6D3] py-12 sm:py-16 md:py-20 lg:py-28 text-[#2A2A2A] snap-section flex items-center"
     >
       <div className="container mx-auto px-4">
         <div className="solution__content max-w-4xl mx-auto">

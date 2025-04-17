@@ -81,7 +81,7 @@ const config = {
         fadeIn: "fadeIn 1s ease-in-out",
         slideInLeft: "slideInLeft 1s ease-in-out",
         fadeScale: "fadeScale 1.5s ease-in-out",
-        "pulse-slow": "pulse 3s infinite",
+        "pulse-slow": "pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite",
         "glitch-1": "glitch1 2.5s infinite",
         "glitch-2": "glitch2 2.5s infinite",
       },

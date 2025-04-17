@@ -264,3 +264,33 @@ header nav a.active::after {
 .animating {
   scroll-snap-type: none !important;
 }
+
+/* Ajoutons des styles pour améliorer les transitions sur mobile */
+
+/* Ajustements pour mobile */
+@media (max-width: 640px) {
+  .snap-section {
+    scroll-snap-align: start;
+    min-height: 90vh; /* Réduire légèrement la hauteur minimale sur mobile */
+    scroll-margin-top: 60px; /* Réduire la marge pour le header sur mobile */
+  }
+
+  /* Améliorer la visibilité des sections sur mobile */
+  #problem,
+  #solution {
+    scroll-margin-top: 0;
+  }
+}
+
+/* Améliorer l'effet de respiration */
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.85;
+    transform: scale(1.05);
+  }
+}

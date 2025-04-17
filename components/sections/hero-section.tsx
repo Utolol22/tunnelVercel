@@ -113,9 +113,13 @@ export function HeroSection() {
 
           {/* Contenu textuel */}
           <div ref={contentRef} className="hero__content flex-1 max-w-2xl text-center md:text-left">
-            <p className="text-sm sm:text-base text-sable-introspection mb-2">Jour 0 : Le début du vrai changement</p>
+            <p className="text-sm sm:text-base md:text-lg text-sable-introspection mb-4 animate-pulse-slow">
+              <span className="text-base sm:text-lg md:text-xl font-semibold">
+                Jour 0 : Le début du vrai changement
+              </span>
+            </p>
             <h1 className="text-blanc-purete text-3xl sm:text-4xl lg:text-5xl font-bold mb-6 leading-tight tracking-tight">
-              Et si cesser de boire ne tenait pas à la volonté, mais à la compréhension ?
+              Et si cesser de boire ne tenait pas à la volonté, mais à la conscience ?
             </h1>
             <p className="hero__subtitle text-lg sm:text-xl mb-6">
               Découvre comment sortir du cycle sans lutte et retrouver ta liberté.

@@ -16,7 +16,6 @@ import { TargetAudienceSection } from "@/components/sections/target-audience-sec
 import { FaqSection } from "@/components/sections/faq-section"
 import { FinalCtaSection } from "@/components/sections/final-cta-section"
 import { Footer } from "@/components/sections/footer"
-import { VideoSection } from "@/components/sections/video-section"
 import { SmoothScroll } from "@/components/ui/smooth-scroll"
 
 export default function Home() {
@@ -75,7 +74,6 @@ export default function Home() {
     <main className={`min-h-screen ${snapEnabled && !isMobile ? "snap-mandatory" : ""}`}>
       <SmoothScroll />
       <HeroSection />
-      <VideoSection />
       <ProblemAgitationSection />
       <SolutionSection />
       <MethodSection />

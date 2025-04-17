@@ -26,8 +26,9 @@ export function SmoothScroll() {
         // Sinon, défiler vers l'élément ciblé
         const targetElement = document.querySelector(href)
         if (targetElement) {
-          // Calculer la position avec un petit décalage pour le header
-          const headerOffset = 80
+          // Calculer la position avec un décalage adapté selon la taille de l'écran
+          const isMobile = window.innerWidth < 640
+          const headerOffset = isMobile ? 60 : 80
           const elementPosition = targetElement.getBoundingClientRect().top
           const offsetPosition = elementPosition + window.pageYOffset - headerOffset
 
@@ -45,9 +46,32 @@ export function SmoothScroll() {
     // Ajouter l'écouteur d'événements
     document.body.addEventListener("click", handleSmoothScroll)
 
-    // Nettoyer l'écouteur d'événements
+    // Ajuster le comportement de défilement sur mobile
+    const adjustMobileScrolling = () => {
+      const isMobile = window.innerWidth < 640
+      if (isMobile) {
+        // Désactiver temporairement le snap sur mobile pour les sections problématiques
+        const problemSection = document.getElementById("problem")
+        const solutionSection = document.getElementById("solution")
+
+        if (problemSection) problemSection.style.scrollSnapAlign = "none"
+        if (solutionSection) solutionSection.style.scrollSnapAlign = "none"
+
+        // Réactiver après le chargement complet
+        setTimeout(() => {
+          if (problemSection) problemSection.style.scrollSnapAlign = "start"
+          if (solutionSection) solutionSection.style.scrollSnapAlign = "start"
+        }, 1000)
+      }
+    }
+
+    adjustMobileScrolling()
+    window.addEventListener("resize", adjustMobileScrolling)
+
+    // Nettoyer les écouteurs d'événements
     return () => {
       document.body.removeEventListener("click", handleSmoothScroll)
+      window.removeEventListener("resize", adjustMobileScrolling)
     }
   }, [])
 
