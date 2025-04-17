@@ -83,7 +83,17 @@ export function FinalCtaSection() {
           </div>
 
           <div className={`mb-16 relative ${ctaHighlighted ? "animate-fadeScale" : ""}`}>
-            <div className="absolute inset-0 rounded-xl bg-[#C41E3A] opacity-20 blur-lg transform -translate-y-2 scale-105 animate-pulse-slow"></div>
+            <div
+              className="absolute rounded-xl bg-[#C41E3A] opacity-20 animate-pulse-slow"
+              style={{
+                width: "100%",
+                height: "100%",
+                top: 0,
+                left: 0,
+                filter: "blur(8px)",
+                transform: "scale(1)",
+              }}
+            ></div>
             <CTAButton
               variant="final"
               pulse={true}
@@ -92,7 +102,7 @@ export function FinalCtaSection() {
                 text: "DERNIÈRES PLACES",
                 color: "bg-yellow-400",
               }}
-              href="#calendly-widget-final"
+              href="https://calendly.com/utolol22"
             />
             <p className="mt-4 text-xs text-[#EDEDED]/60 italic">
               Entretien confidentiel de 60 minutes - Places limitées
@@ -105,15 +115,6 @@ export function FinalCtaSection() {
               Rejoins les <span className="text-yellow-400 font-bold">1000+</span> personnes libérées
             </p>
           </div>
-
-          {/* Calendly Widget */}
-          <p className="text-sm text-[#EDEDED]/60 mb-4">Calendrier de réservation :</p>
-          <div
-            id="calendly-widget-final"
-            className="calendly-inline-widget bg-white rounded-lg overflow-hidden shadow-xl border border-gray-700"
-            data-url="https://calendly.com/utolol22"
-            style={{ minWidth: "320px", height: "700px" }}
-          ></div>
         </div>
       </div>
     </section>

@@ -19,13 +19,13 @@ interface CTAButtonProps {
     text: string
     color: string
   }
-  text?: string // Nouveau prop pour personnaliser le texte
+  text?: string
 }
 
 export function CTAButton({
   variant = "hero",
   className,
-  href = "#calendly-widget",
+  href = "https://calendly.com/utolol22",
   showIcon = true,
   pulse = false,
   fullWidth = false,
@@ -86,7 +86,7 @@ export function CTAButton({
       case "final":
         return "xl"
       case "problem":
-        return "lg" // Taille ajustée pour le bouton problem
+        return "lg"
       default:
         return "lg"
     }
@@ -102,9 +102,19 @@ export function CTAButton({
       )}
     >
       {pulse && (
-        <div className="absolute inset-0 rounded-xl bg-rouge-liberation opacity-20 blur-lg transform -translate-y-2 scale-105 animate-pulse-slow"></div>
+        <div
+          className="absolute rounded-xl bg-rouge-liberation opacity-20 animate-pulse-slow"
+          style={{
+            width: "100%",
+            height: "100%",
+            top: 0,
+            left: 0,
+            filter: "blur(8px)",
+            transform: "scale(1)",
+          }}
+        ></div>
       )}
-      <Link href={href}>
+      <Link href={href} target="_blank" rel="noopener noreferrer">
         <Button
           id={`cta-button-${variant}`}
           variant="primary"

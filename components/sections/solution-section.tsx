@@ -1,5 +1,5 @@
 "use client"
-import { useRef, useEffect } from "react"
+import { useRef, useEffect, useState } from "react"
 import gsap from "gsap"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
 import { fadeInUp, staggerFadeIn, cleanupScrollTriggers } from "@/lib/gsap-utils"
@@ -18,6 +18,20 @@ export function SolutionSection() {
   const columnsRef = useRef<HTMLDivElement>(null)
   const ctaRef = useRef<HTMLDivElement>(null)
 
+  const [isMobile, setIsMobile] = useState(false)
+
+  // Vérification si on est sur mobile
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768)
+    }
+
+    window.addEventListener("resize", checkMobile)
+    checkMobile() // Initialisation
+
+    return () => window.removeEventListener("resize", checkMobile)
+  }, [])
+
   useEffect(() => {
     // S'assurer que le code s'exécute uniquement côté client
     if (typeof window === "undefined") return
@@ -26,45 +40,45 @@ export function SolutionSection() {
     fadeInUp(titleRef.current, {
       scrollTrigger: {
         trigger: sectionRef.current,
-        start: "top 80%",
-        end: "top 50%",
-        scrub: 1,
+        start: isMobile ? "top 95%" : "top 80%",
+        end: isMobile ? "top 70%" : "top 50%",
+        scrub: isMobile ? false : 1,
       },
     })
 
     // Animation pour le sous-titre
     fadeInUp(subtitleRef.current, {
-      y: 30,
-      delay: 0.1,
+      y: isMobile ? 15 : 30,
+      delay: isMobile ? 0.05 : 0.1,
       scrollTrigger: {
         trigger: sectionRef.current,
-        start: "top 75%",
-        end: "top 45%",
-        scrub: 1,
+        start: isMobile ? "top 90%" : "top 75%",
+        end: isMobile ? "top 65%" : "top 45%",
+        scrub: isMobile ? false : 1,
       },
     })
 
     // Animation pour les colonnes
     staggerFadeIn(columnsRef.current, ".solution-column", {
-      y: 20,
-      stagger: 0.1,
+      y: isMobile ? 10 : 20,
+      stagger: isMobile ? 0.05 : 0.1,
       scrollTrigger: {
         trigger: columnsRef.current,
-        start: "top 70%",
-        end: "bottom 50%",
-        scrub: 1,
+        start: isMobile ? "top 90%" : "top 70%",
+        end: isMobile ? "bottom 70%" : "bottom 50%",
+        scrub: isMobile ? false : 1,
       },
     })
 
     // Animation pour le CTA
     fadeInUp(ctaRef.current, {
-      y: 30,
-      delay: 0.3,
+      y: isMobile ? 15 : 30,
+      delay: isMobile ? 0.1 : 0.3,
       scrollTrigger: {
         trigger: ctaRef.current,
-        start: "top 90%",
-        end: "top 70%",
-        scrub: 1,
+        start: isMobile ? "top 95%" : "top 90%",
+        end: isMobile ? "top 80%" : "top 70%",
+        scrub: isMobile ? false : 1,
       },
     })
 

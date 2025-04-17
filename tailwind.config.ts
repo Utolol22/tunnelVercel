@@ -125,6 +125,14 @@ const config = {
       boxShadow: {
         "section-transition": "0 -20px 30px -10px rgba(0, 0, 0, 0.1)",
       },
+      blur: {
+        xs: "2px",
+        sm: "4px",
+        DEFAULT: "8px",
+        md: "12px",
+        lg: "16px",
+        xl: "24px",
+      },
     },
   },
   plugins: [require("tailwindcss-animate")],

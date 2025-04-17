@@ -50,13 +50,13 @@ export function ProblemAgitationSection() {
         {
           y: 0,
           opacity: 1,
-          duration: 0.8,
+          duration: isMobile ? 0.4 : 0.8,
           ease: "power2.out",
           scrollTrigger: {
             trigger: sectionRef.current,
-            start: "top 80%",
-            end: "top 50%",
-            scrub: 1,
+            start: isMobile ? "top 95%" : "top 80%",
+            end: isMobile ? "top 70%" : "top 50%",
+            scrub: isMobile ? false : 1,
           },
         },
       )
@@ -68,20 +68,20 @@ export function ProblemAgitationSection() {
       gsap.fromTo(
         bulletPoints,
         {
-          y: 40,
+          y: isMobile ? 20 : 40,
           opacity: 0,
         },
         {
           y: 0,
           opacity: 1,
-          stagger: 0.1,
-          duration: 0.8,
+          stagger: isMobile ? 0.05 : 0.1,
+          duration: isMobile ? 0.4 : 0.8,
           ease: "power2.out",
           scrollTrigger: {
             trigger: contentRef.current,
-            start: "top 80%",
-            end: "bottom 50%",
-            scrub: 1,
+            start: isMobile ? "top 90%" : "top 80%",
+            end: isMobile ? "bottom 70%" : "bottom 50%",
+            scrub: isMobile ? false : 1,
           },
         },
       )
@@ -92,19 +92,19 @@ export function ProblemAgitationSection() {
       gsap.fromTo(
         imageRef.current,
         {
-          scale: 0.9,
+          scale: isMobile ? 0.95 : 0.9,
           opacity: 0,
         },
         {
           scale: 1,
           opacity: 1,
-          duration: 1,
+          duration: isMobile ? 0.5 : 1,
           ease: "power2.out",
           scrollTrigger: {
             trigger: imageRef.current,
-            start: "top 80%",
-            end: "top 30%",
-            scrub: 1,
+            start: isMobile ? "top 90%" : "top 80%",
+            end: isMobile ? "top 60%" : "top 30%",
+            scrub: isMobile ? false : 1,
           },
         },
       )
@@ -115,19 +115,19 @@ export function ProblemAgitationSection() {
       gsap.fromTo(
         ctaRef.current,
         {
-          y: 20,
+          y: isMobile ? 10 : 20,
           opacity: 0,
         },
         {
           y: 0,
           opacity: 1,
-          duration: 0.6,
+          duration: isMobile ? 0.3 : 0.6,
           ease: "power2.out",
           scrollTrigger: {
             trigger: ctaRef.current,
-            start: "top 90%",
-            end: "top 70%",
-            scrub: 1,
+            start: isMobile ? "top 95%" : "top 90%",
+            end: isMobile ? "top 80%" : "top 70%",
+            scrub: isMobile ? false : 1,
           },
         },
       )
@@ -245,7 +245,17 @@ export function ProblemAgitationSection() {
           <div ref={ctaRef} className="flex justify-center w-full mt-8 mb-12">
             <div className="relative inline-block max-w-md">
               {/* Effet de halo ajusté */}
-              <div className="absolute inset-0 bg-rouge-liberation/30 blur-md rounded-lg transform scale-[0.98]"></div>
+              <div
+                className="absolute bg-rouge-liberation/30 blur-sm rounded-lg"
+                style={{
+                  width: "100%",
+                  height: "100%",
+                  top: 0,
+                  left: 0,
+                  filter: "blur(8px)",
+                  transform: "scale(1)",
+                }}
+              ></div>
               <CTAButton variant="problem" pulse={false} className="relative z-10" />
             </div>
           </div>

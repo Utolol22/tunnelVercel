@@ -112,14 +112,29 @@ export function ProgramSection() {
 
           {/* CTA */}
           <motion.div className="text-center mt-12" variants={fadeInVariants}>
-            <CTAButton
-              variant="program"
-              pulse={true}
-              badge={{
-                text: "COMMENCE MAINTENANT",
-                color: "bg-yellow-400",
-              }}
-            />
+            <div className="relative inline-block">
+              {/* Effet de halo ajusté */}
+              <div
+                className="absolute rounded-xl bg-rouge-liberation opacity-20 animate-pulse-slow"
+                style={{
+                  width: "100%",
+                  height: "100%",
+                  top: 0,
+                  left: 0,
+                  filter: "blur(8px)",
+                  transform: "scale(1)",
+                }}
+              ></div>
+              <CTAButton
+                variant="program"
+                pulse={true}
+                badge={{
+                  text: "COMMENCE MAINTENANT",
+                  color: "bg-yellow-400",
+                }}
+                href="https://calendly.com/utolol22"
+              />
+            </div>
           </motion.div>
         </div>
       </div>

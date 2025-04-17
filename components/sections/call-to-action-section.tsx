@@ -6,14 +6,10 @@ import { Button } from "@/components/ui/button"
 import { Gift, ArrowRight, Phone } from "lucide-react"
 
 export function CallToActionSection() {
-  const [isClient, setIsClient] = useState(false)
-  // État pour animer le CTA
   const [ctaHighlighted, setCtaHighlighted] = useState(false)
   const [isSticky, setIsSticky] = useState(false)
 
   useEffect(() => {
-    setIsClient(true)
-
     // Ajouter l'effet de mise en évidence du CTA au scroll
     const handleScroll = () => {
       const scrollPosition = window.scrollY
@@ -100,8 +96,18 @@ export function CallToActionSection() {
 
           {/* Bouton CTA amélioré avec effet visuel */}
           <div className={`mb-16 relative ${ctaHighlighted ? "animate-fadeScale" : ""}`}>
-            <div className="absolute inset-0 rounded-xl bg-rouge-liberation opacity-20 blur-lg transform -translate-y-2 scale-105 animate-pulse-slow"></div>
-            <Link href="#calendly-widget">
+            <div
+              className="absolute rounded-xl bg-rouge-liberation opacity-20 animate-pulse-slow"
+              style={{
+                width: "100%",
+                height: "100%",
+                top: 0,
+                left: 0,
+                filter: "blur(8px)",
+                transform: "scale(1)",
+              }}
+            ></div>
+            <Link href="https://calendly.com/utolol22" target="_blank" rel="noopener noreferrer">
               <Button
                 variant="primary"
                 size="xl"
@@ -119,33 +125,13 @@ export function CallToActionSection() {
               Entretien confidentiel de 60 minutes - Places limitées
             </p>
           </div>
-
-          {/* Calendly Widget Container */}
-          <div className="mt-16 border border-gray-200 rounded-lg shadow-lg overflow-hidden">
-            <div
-              id="calendly-widget"
-              className="calendly-inline-widget"
-              data-url="https://calendly.com/utolol22"
-              style={{ minWidth: "320px", height: "700px" }}
-            >
-              {/* Calendly injects iframe here */}
-              {isClient ? null : (
-                <div
-                  className="bg-gray-100 flex items-center justify-center"
-                  style={{ minWidth: "320px", height: "700px" }}
-                >
-                  Chargement...
-                </div>
-              )}
-            </div>
-          </div>
         </div>
       </div>
 
       {/* Sticky CTA */}
       {isSticky && (
         <div className="fixed bottom-6 right-6 z-50 transition-all duration-300 transform translate-y-0">
-          <Link href="#calendly-widget">
+          <Link href="https://calendly.com/utolol22" target="_blank" rel="noopener noreferrer">
             <Button
               variant="primary"
               size="lg"

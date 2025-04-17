@@ -17,7 +17,7 @@ interface CTABannerProps {
 export function CTABanner({
   text = "Prêt(e) pour un appel offert ?",
   subtext = "Réserve ton appel gratuit et sans engagement",
-  href = "#calendly-widget",
+  href = "https://calendly.com/utolol22",
   className,
   bgColor = "bg-rouge-liberation",
   textColor = "text-blanc-purete",
@@ -58,7 +58,7 @@ export function CTABanner({
       )}
     >
       <div className="container mx-auto">
-        <Link href={href}>
+        <Link href={href} target="_blank" rel="noopener noreferrer">
           <div className="flex flex-col sm:flex-row items-center justify-between cursor-pointer group">
             <div>
               <h3 className="text-xl sm:text-2xl font-bold mb-2">{text}</h3>

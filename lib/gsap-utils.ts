@@ -22,15 +22,17 @@ const disableSnapDuringAnimation = () => {
 export function fadeInUp(element: Element | null, options = {}) {
   if (!element) return
 
+  const isMobile = typeof window !== "undefined" ? window.innerWidth < 768 : false
+
   const defaults = {
-    y: 30,
+    y: isMobile ? 15 : 30,
     opacity: 0,
-    duration: 0.6,
+    duration: isMobile ? 0.4 : 0.6,
     ease: "power2.out",
     scrollTrigger: {
-      start: "top 80%",
-      end: "top 50%",
-      scrub: 0.5,
+      start: isMobile ? "top 90%" : "top 80%",
+      end: isMobile ? "top 70%" : "top 50%",
+      scrub: isMobile ? false : 0.5,
       onEnter: disableSnapDuringAnimation,
       onEnterBack: disableSnapDuringAnimation,
     },
@@ -103,16 +105,18 @@ export function staggerFadeIn(parent: Element | null, childSelector: string, opt
   const children = parent.querySelectorAll(childSelector)
   if (!children.length) return
 
+  const isMobile = typeof window !== "undefined" ? window.innerWidth < 768 : false
+
   const defaults = {
-    y: 20,
+    y: isMobile ? 10 : 20,
     opacity: 0,
-    stagger: 0.05,
-    duration: 0.6,
+    stagger: isMobile ? 0.03 : 0.05,
+    duration: isMobile ? 0.4 : 0.6,
     ease: "power2.out",
     scrollTrigger: {
-      start: "top 80%",
-      end: "bottom 60%",
-      scrub: 0.5,
+      start: isMobile ? "top 90%" : "top 80%",
+      end: isMobile ? "bottom 70%" : "bottom 60%",
+      scrub: isMobile ? false : 0.5,
       onEnter: disableSnapDuringAnimation,
       onEnterBack: disableSnapDuringAnimation,
     },

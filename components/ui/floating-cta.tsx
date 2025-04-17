@@ -11,7 +11,7 @@ interface FloatingCTAProps {
   className?: string
 }
 
-export function FloatingCTA({ href = "#calendly-widget", showLabel = true, className }: FloatingCTAProps) {
+export function FloatingCTA({ href = "https://calendly.com/utolol22", showLabel = true, className }: FloatingCTAProps) {
   const [isVisible, setIsVisible] = useState(false)
   const [hasScrolled, setHasScrolled] = useState(false)
 
@@ -41,7 +41,7 @@ export function FloatingCTA({ href = "#calendly-widget", showLabel = true, class
         className,
       )}
     >
-      <Link href={href}>
+      <Link href={href} target="_blank" rel="noopener noreferrer">
         <div className="flex items-center bg-rouge-liberation text-blanc-purete rounded-full shadow-lg p-3 pr-4">
           <div className="bg-blanc-purete rounded-full p-2 mr-2">
             <Phone className="h-5 w-5 text-rouge-liberation" />

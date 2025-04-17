@@ -9,7 +9,7 @@ interface ProgressBarProps {
   className?: string
 }
 
-export function ProgressBar({ href = "#calendly-widget", className }: ProgressBarProps) {
+export function ProgressBar({ href = "https://calendly.com/utolol22", className }: ProgressBarProps) {
   const [progress, setProgress] = useState(0)
 
   useEffect(() => {
@@ -28,7 +28,7 @@ export function ProgressBar({ href = "#calendly-widget", className }: ProgressBa
 
   return (
     <div className={cn("fixed top-0 left-0 right-0 h-1 z-50 bg-gray-200", className)}>
-      <Link href={href}>
+      <Link href={href} target="_blank" rel="noopener noreferrer">
         <div
           className="h-full bg-rouge-liberation transition-all duration-100 relative group"
           style={{ width: `${progress}%` }}

@@ -11,7 +11,11 @@ interface StickyCTAProps {
   className?: string
 }
 
-export function StickyCTA({ href = "#calendly-widget", text = "Réserve ton appel offert", className }: StickyCTAProps) {
+export function StickyCTA({
+  href = "https://calendly.com/utolol22",
+  text = "Réserve ton appel offert",
+  className,
+}: StickyCTAProps) {
   const [isVisible, setIsVisible] = useState(false)
   const [hasScrolled, setHasScrolled] = useState(false)
 
@@ -41,7 +45,7 @@ export function StickyCTA({ href = "#calendly-widget", text = "Réserve ton appe
         className,
       )}
     >
-      <Link href={href}>
+      <Link href={href} target="_blank" rel="noopener noreferrer">
         <div className="flex items-center justify-center bg-rouge-liberation text-blanc-purete p-4 shadow-lg">
           <Phone className="h-5 w-5 mr-2" />
           <span className="font-medium">{text}</span>

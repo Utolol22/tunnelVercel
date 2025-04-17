@@ -17,7 +17,7 @@ interface MicroPopupProps {
 
 export function MicroPopup({
   text = "Réserve ton appel gratuit",
-  href = "#calendly-widget",
+  href = "https://calendly.com/utolol22",
   className,
   autoShowDelay = 5000, // 5 secondes après le chargement
   autoHideDelay = 8000, // Visible pendant 3 secondes
@@ -78,7 +78,7 @@ export function MicroPopup({
         className,
       )}
     >
-      <Link href={href}>
+      <Link href={href} target="_blank" rel="noopener noreferrer">
         <div className="bg-blanc-purete text-noir-profond rounded-lg shadow-lg p-4 pr-10 border-l-4 border-rouge-liberation">
           <button
             onClick={handleDismiss}
