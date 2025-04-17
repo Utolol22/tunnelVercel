@@ -68,14 +68,47 @@ export function HeroSection() {
       )
     }
 
+    // Animation immédiate si la classe animate-now est présente
+    const handleAnimateNow = () => {
+      if (sectionRef.current?.closest(".animate-now")) {
+        if (contentElements) {
+          gsap.to(contentElements, {
+            y: 0,
+            opacity: 1,
+            stagger: 0.1,
+            duration: 0.5,
+            ease: "power2.out",
+          })
+        }
+
+        if (imageRef.current) {
+          gsap.to(imageRef.current, {
+            scale: 1,
+            opacity: 1,
+            duration: 0.5,
+            ease: "power2.out",
+          })
+        }
+      }
+    }
+
+    handleAnimateNow()
+    sectionRef.current?.addEventListener("animationstart", handleAnimateNow)
+
     // Nettoyage des animations lors du démontage du composant
     return () => {
       ScrollTrigger.getAll().forEach((trigger) => trigger.kill())
+      sectionRef.current?.removeEventListener("animationstart", handleAnimateNow)
     }
   }, [])
 
   return (
-    <section ref={sectionRef} className="hero text-blanc-purete pt-24 pb-16 snap-section flex items-center relative">
+    <section
+      ref={sectionRef}
+      id="hero"
+      className="hero text-blanc-purete pt-24 pb-16 snap-section flex items-center relative"
+      data-animate="true"
+    >
       {/* Dégradé de fond amélioré */}
       <div className="absolute inset-0 bg-gradient-to-b from-noir-profond via-noir-profond to-[#1A0000] z-0"></div>
 
@@ -93,7 +126,7 @@ export function HeroSection() {
       <div className="container mx-auto px-4 relative z-20">
         <div className="flex flex-col md:flex-row items-center justify-center gap-8 md:gap-12 lg:gap-16">
           {/* Image avec le "0" */}
-          <div ref={imageRef} className="hero__image w-64 h-96 md:w-80 md:h-[28rem] flex-shrink-0">
+          <div ref={imageRef} className="hero__image w-64 h-96 md:w-80 md:h-[28rem] flex-shrink-0" data-animate="true">
             <div className="relative w-full h-full">
               {/* Effet de pulsation rouge discret */}
               <div
@@ -138,7 +171,7 @@ export function HeroSection() {
           </div>
 
           {/* Contenu textuel */}
-          <div ref={contentRef} className="hero__content max-w-2xl text-center md:text-left">
+          <div ref={contentRef} className="hero__content max-w-2xl text-center md:text-left" data-animate="true">
             <p className="text-sm sm:text-base md:text-lg text-sable-introspection mb-4 animate-pulse-slow">
               <span className="text-base sm:text-lg md:text-xl font-semibold">
                 Jour 0 : Le début du vrai changement

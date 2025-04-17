@@ -1,23 +1,27 @@
 "use client"
 
+import type React from "react"
+
 import { useState, useEffect } from "react"
 import Link from "next/link"
 import { Menu, X } from "lucide-react"
 
+// Mise à jour des liens pour correspondre aux IDs exacts des sections
 const navItems = [
-  { name: "Accueil", href: "#" },
+  { name: "Accueil", href: "#hero" },
   { name: "Le problème", href: "#problem" },
-  { name: "La solution", href: "#promise" },
-  { name: "Le programme", href: "#offer" },
+  { name: "La solution", href: "#solution" },
+  { name: "Le programme", href: "#program" },
   { name: "Témoignages", href: "#testimonials" },
   { name: "À propos", href: "#author" },
   { name: "FAQ", href: "#faq" },
-  { name: "Contact", href: "#calendly" },
+  { name: "Contact", href: "https://calendly.com/utolol22" },
 ]
 
 export function Header() {
   const [isScrolled, setIsScrolled] = useState(false)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const [activeSection, setActiveSection] = useState("")
 
   // Effet pour détecter le scroll
   useEffect(() => {
@@ -27,15 +31,63 @@ export function Header() {
       } else {
         setIsScrolled(false)
       }
+
+      // Déterminer la section active
+      const sections = navItems
+        .map((item) => item.href.replace("#", ""))
+        .filter((id) => id && document.getElementById(id))
+
+      for (const section of sections) {
+        const element = document.getElementById(section)
+        if (element) {
+          const rect = element.getBoundingClientRect()
+          if (rect.top <= 100 && rect.bottom >= 100) {
+            setActiveSection(section)
+            break
+          }
+        }
+      }
     }
 
     window.addEventListener("scroll", handleScroll)
     return () => window.removeEventListener("scroll", handleScroll)
   }, [])
 
-  // Fonction pour fermer le menu mobile après un clic sur un lien
-  const handleLinkClick = () => {
+  // Fonction pour gérer la navigation
+  const handleNavigation = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    e.preventDefault()
     setMobileMenuOpen(false)
+
+    // Si c'est un lien externe (Calendly)
+    if (href.startsWith("http")) {
+      window.open(href, "_blank", "noopener,noreferrer")
+      return
+    }
+
+    const targetId = href.replace("#", "")
+    const targetElement = document.getElementById(targetId)
+
+    if (targetElement) {
+      // Calculer la position avec un décalage adapté
+      const headerHeight = 80 // Hauteur approximative du header
+      const elementPosition = targetElement.getBoundingClientRect().top + window.pageYOffset
+      const offsetPosition = elementPosition - headerHeight
+
+      // Défilement fluide vers la cible
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: "smooth",
+      })
+
+      // Forcer l'activation des animations
+      const animatedElements = targetElement.querySelectorAll("[data-animate]")
+      animatedElements.forEach((el) => {
+        el.classList.add("animate-now")
+      })
+
+      // Mettre à jour la section active
+      setActiveSection(targetId)
+    }
   }
 
   return (
@@ -47,7 +99,11 @@ export function Header() {
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between">
           {/* Logo ou nom du site */}
-          <Link href="#" className="text-blanc-purete font-bold text-xl">
+          <Link
+            href="#hero"
+            className="text-blanc-purete font-bold text-xl"
+            onClick={(e) => handleNavigation(e, "#hero")}
+          >
             <span className="text-rouge-liberation">Uto</span>
           </Link>
 
@@ -58,9 +114,13 @@ export function Header() {
                 key={item.name}
                 href={item.href}
                 className={`text-sm font-medium transition-colors hover:text-rouge-liberation ${
-                  isScrolled ? "text-blanc-purete" : "text-blanc-purete/90"
+                  activeSection === item.href.replace("#", "")
+                    ? "text-rouge-liberation"
+                    : isScrolled
+                      ? "text-blanc-purete"
+                      : "text-blanc-purete/90"
                 }`}
-                onClick={handleLinkClick}
+                onClick={(e) => handleNavigation(e, item.href)}
               >
                 {item.name}
               </Link>
@@ -86,8 +146,10 @@ export function Header() {
               <Link
                 key={item.name}
                 href={item.href}
-                className="text-blanc-purete text-lg font-medium py-2 border-b border-blanc-purete/10 hover:text-rouge-liberation transition-colors"
-                onClick={handleLinkClick}
+                className={`text-blanc-purete text-lg font-medium py-2 border-b border-blanc-purete/10 hover:text-rouge-liberation transition-colors ${
+                  activeSection === item.href.replace("#", "") ? "text-rouge-liberation" : ""
+                }`}
+                onClick={(e) => handleNavigation(e, item.href)}
               >
                 {item.name}
               </Link>

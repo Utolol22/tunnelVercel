@@ -24,18 +24,29 @@ export function SmoothScroll() {
         }
 
         // Sinon, défiler vers l'élément ciblé
-        const targetElement = document.querySelector(href)
+        const targetId = href.replace("#", "")
+        const targetElement = document.getElementById(targetId)
+
         if (targetElement) {
           // Calculer la position avec un décalage adapté selon la taille de l'écran
           const isMobile = window.innerWidth < 640
           const headerOffset = isMobile ? 60 : 80
-          const elementPosition = targetElement.getBoundingClientRect().top
-          const offsetPosition = elementPosition + window.pageYOffset - headerOffset
+          const elementPosition = targetElement.getBoundingClientRect().top + window.pageYOffset
+          const offsetPosition = elementPosition - headerOffset
 
+          // Défiler vers la position calculée
           window.scrollTo({
             top: offsetPosition,
             behavior: "smooth",
           })
+
+          // Forcer l'activation des animations dans la section cible
+          setTimeout(() => {
+            const animatedElements = targetElement.querySelectorAll("[data-animate]")
+            animatedElements.forEach((el) => {
+              el.classList.add("animate-now")
+            })
+          }, 300) // Petit délai pour laisser le temps au défilement de commencer
         }
       }
     }
@@ -46,32 +57,23 @@ export function SmoothScroll() {
     // Ajouter l'écouteur d'événements
     document.body.addEventListener("click", handleSmoothScroll)
 
-    // Ajuster le comportement de défilement sur mobile
-    const adjustMobileScrolling = () => {
-      const isMobile = window.innerWidth < 640
-      if (isMobile) {
-        // Désactiver temporairement le snap sur mobile pour les sections problématiques
-        const problemSection = document.getElementById("problem")
-        const solutionSection = document.getElementById("solution")
-
-        if (problemSection) problemSection.style.scrollSnapAlign = "none"
-        if (solutionSection) solutionSection.style.scrollSnapAlign = "none"
-
-        // Réactiver après le chargement complet
-        setTimeout(() => {
-          if (problemSection) problemSection.style.scrollSnapAlign = "start"
-          if (solutionSection) solutionSection.style.scrollSnapAlign = "start"
-        }, 1000)
-      }
+    // Fonction pour activer les animations des éléments visibles au chargement
+    const activateInitialAnimations = () => {
+      const viewportHeight = window.innerHeight
+      document.querySelectorAll("[data-animate]").forEach((el) => {
+        const rect = el.getBoundingClientRect()
+        if (rect.top < viewportHeight && rect.bottom > 0) {
+          el.classList.add("animate-now")
+        }
+      })
     }
 
-    adjustMobileScrolling()
-    window.addEventListener("resize", adjustMobileScrolling)
+    // Activer les animations initiales après un court délai
+    setTimeout(activateInitialAnimations, 300)
 
     // Nettoyer les écouteurs d'événements
     return () => {
       document.body.removeEventListener("click", handleSmoothScroll)
-      window.removeEventListener("resize", adjustMobileScrolling)
     }
   }, [])
 

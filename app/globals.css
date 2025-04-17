@@ -178,9 +178,37 @@
 
 /* Ajouter à la fin du fichier globals.css */
 
+/* Styles pour les animations immédiates */
+[data-animate] {
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+[data-animate].animate-now {
+  animation: none !important;
+  opacity: 1 !important;
+  transform: none !important;
+}
+
 /* Ajustement pour le scroll avec header fixe */
 html {
   scroll-padding-top: 80px; /* Hauteur approximative du header */
+}
+
+@media (max-width: 640px) {
+  html {
+    scroll-padding-top: 60px; /* Hauteur réduite sur mobile */
+  }
+}
+
+/* Amélioration de la navigation */
+.section-target {
+  scroll-margin-top: 80px;
+}
+
+@media (max-width: 640px) {
+  .section-target {
+    scroll-margin-top: 60px;
+  }
 }
 
 /* Animation pour les liens de navigation */
