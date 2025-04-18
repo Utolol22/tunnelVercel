@@ -3,7 +3,7 @@ import { useRef, useEffect, useState } from "react"
 import gsap from "gsap"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
 import { fadeInUp, staggerFadeIn, cleanupScrollTriggers } from "@/lib/gsap-utils"
-import { Lightbulb, Flame, Heart } from "lucide-react"
+import { Eye, Lightbulb, X } from "lucide-react"
 import { CTAButton } from "@/components/ui/cta-button"
 import { useMobile } from "@/hooks/use-mobile"
 
@@ -16,7 +16,11 @@ export function SolutionSection() {
   const sectionRef = useRef<HTMLElement>(null)
   const titleRef = useRef<HTMLHeadingElement>(null)
   const subtitleRef = useRef<HTMLParagraphElement>(null)
-  const columnsRef = useRef<HTMLDivElement>(null)
+  const mainTextRef = useRef<HTMLDivElement>(null)
+  const analogyRef = useRef<HTMLDivElement>(null)
+  const listContainerRef = useRef<HTMLDivElement>(null)
+  const listItemsRef = useRef<HTMLDivElement[]>([])
+  const conclusionRef = useRef<HTMLDivElement>(null)
   const ctaRef = useRef<HTMLDivElement>(null)
 
   const isMobile = useMobile()
@@ -60,14 +64,46 @@ export function SolutionSection() {
         })
       }
 
-      // Animation simplifiée pour les colonnes
-      const columns = columnsRef.current?.querySelectorAll(".solution-column")
-      if (columns) {
-        gsap.to(columns, {
+      // Animation simplifiée pour le texte principal
+      if (mainTextRef.current) {
+        gsap.to(mainTextRef.current, {
           opacity: 1,
           y: 0,
-          stagger: 0.1,
           duration: 0.3,
+          delay: 0.2,
+          ease: "power1.out",
+        })
+      }
+
+      // Animation simplifiée pour l'analogie
+      if (analogyRef.current) {
+        gsap.to(analogyRef.current, {
+          opacity: 1,
+          y: 0,
+          duration: 0.3,
+          delay: 0.3,
+          ease: "power1.out",
+        })
+      }
+
+      // Animation simplifiée pour la liste
+      if (listContainerRef.current) {
+        gsap.to(listContainerRef.current, {
+          opacity: 1,
+          y: 0,
+          duration: 0.3,
+          delay: 0.4,
+          ease: "power1.out",
+        })
+      }
+
+      // Animation simplifiée pour la conclusion
+      if (conclusionRef.current) {
+        gsap.to(conclusionRef.current, {
+          opacity: 1,
+          y: 0,
+          duration: 0.3,
+          delay: 0.5,
           ease: "power1.out",
         })
       }
@@ -78,7 +114,7 @@ export function SolutionSection() {
           opacity: 1,
           y: 0,
           duration: 0.3,
-          delay: 0.3,
+          delay: 0.6,
           ease: "power1.out",
         })
       }
@@ -105,22 +141,72 @@ export function SolutionSection() {
         },
       })
 
-      // Animation pour les colonnes sur desktop
-      staggerFadeIn(columnsRef.current, ".solution-column", {
-        y: 20,
-        stagger: 0.1,
+      // Animation pour le texte principal
+      fadeInUp(mainTextRef.current, {
+        y: 30,
+        delay: 0.2,
         scrollTrigger: {
-          trigger: columnsRef.current,
-          start: "top 70%",
-          end: "bottom 50%",
+          trigger: mainTextRef.current,
+          start: "top 80%",
+          end: "top 60%",
           scrub: 1,
         },
       })
 
-      // Animation pour le CTA sur desktop
-      fadeInUp(ctaRef.current, {
+      // Animation pour l'analogie
+      fadeInUp(analogyRef.current, {
         y: 30,
         delay: 0.3,
+        scrollTrigger: {
+          trigger: analogyRef.current,
+          start: "top 80%",
+          end: "top 60%",
+          scrub: 1,
+        },
+      })
+
+      // Animation pour la liste
+      fadeInUp(listContainerRef.current, {
+        y: 30,
+        delay: 0.4,
+        scrollTrigger: {
+          trigger: listContainerRef.current,
+          start: "top 80%",
+          end: "top 60%",
+          scrub: 1,
+        },
+      })
+
+      // Animation pour les éléments de la liste
+      if (listContainerRef.current) {
+        staggerFadeIn(listContainerRef.current, ".list-item", {
+          y: 15,
+          stagger: 0.1,
+          scrollTrigger: {
+            trigger: listContainerRef.current,
+            start: "top 75%",
+            end: "bottom 60%",
+            scrub: 1,
+          },
+        })
+      }
+
+      // Animation pour la conclusion
+      fadeInUp(conclusionRef.current, {
+        y: 30,
+        delay: 0.5,
+        scrollTrigger: {
+          trigger: conclusionRef.current,
+          start: "top 80%",
+          end: "top 60%",
+          scrub: 1,
+        },
+      })
+
+      // Animation pour le CTA
+      fadeInUp(ctaRef.current, {
+        y: 30,
+        delay: 0.6,
         scrollTrigger: {
           trigger: ctaRef.current,
           start: "top 90%",
@@ -136,91 +222,131 @@ export function SolutionSection() {
     }
   }, [isMobile])
 
-  // Ajouter une classe pour gérer la transition en haut de la section
   return (
     <section
       ref={sectionRef}
       id="solution"
       className="bg-[#F5E6D3] py-12 sm:py-16 md:py-20 lg:py-28 text-[#2A2A2A] snap-section flex items-center relative"
+      data-animate="true"
     >
       {/* Ombre subtile en haut pour améliorer la transition */}
       <div className="absolute top-0 left-0 right-0 h-16 bg-gradient-to-b from-[#F5E6D3]/50 to-transparent pointer-events-none"></div>
 
       <div className="container mx-auto px-4">
-        <div className={`solution__content max-w-4xl mx-auto ${isContentVisible ? "opacity-100" : "opacity-0"}`}>
+        <div
+          className={`solution__content max-w-4xl mx-auto ${isContentVisible ? "opacity-100" : "opacity-0"}`}
+          data-animate="true"
+        >
+          {/* Titre principal avec animation fadeInUp */}
           <h2
             ref={titleRef}
             className="font-heading text-3xl md:text-4xl text-center mb-6 text-rouge-liberation"
             style={{ opacity: isMobile ? 1 : 0, transform: isMobile ? "none" : "translateY(30px)" }}
+            data-animate="true"
           >
-            Et si le problème, ce n'était pas ta volonté ?
+            Et si le Vrai Problème, ce n'était <span className="font-bold">PAS</span> ta Volonté ?
           </h2>
+
+          {/* Sous-titre avec animation fadeInUp */}
           <p
             ref={subtitleRef}
-            className="text-xl md:text-2xl font-semibold text-center mb-12 text-[#1A1A1A]"
+            className="text-xl md:text-2xl font-semibold text-center mb-10 text-[#1A1A1A]"
             style={{ opacity: isMobile ? 1 : 0, transform: isMobile ? "none" : "translateY(30px)" }}
+            data-animate="true"
           >
-            Et si la clé n'était pas de <em>forcer plus</em>, mais de <strong>comprendre différemment</strong> ?
+            Si la clé n'était pas de <em>forcer plus</em>, mais de <strong>changer son regard</strong> ?
           </p>
 
-          {/* 3 colonnes avec icônes */}
-          <div ref={columnsRef} className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
-            {/* Colonne 1 */}
-            <div
-              className="solution-column bg-blanc-purete p-6 rounded-lg shadow-md text-center"
-              style={{ opacity: isMobile ? 1 : 0, transform: isMobile ? "none" : "translateY(20px)" }}
-            >
-              <div className="flex justify-center mb-4">
-                <div className="w-16 h-16 bg-rouge-liberation/10 rounded-full flex items-center justify-center">
-                  <Lightbulb className="h-8 w-8 text-rouge-liberation" />
-                </div>
+          {/* Texte principal avec animation fadeInUp */}
+          <div
+            ref={mainTextRef}
+            className="bg-blanc-purete p-6 rounded-lg shadow-md mb-8"
+            style={{ opacity: isMobile ? 1 : 0, transform: isMobile ? "none" : "translateY(30px)" }}
+            data-animate="true"
+          >
+            <div className="flex items-start mb-4">
+              <div className="w-12 h-12 bg-rouge-liberation/10 rounded-full flex items-center justify-center mr-4 flex-shrink-0">
+                <Eye className="h-6 w-6 text-rouge-liberation" />
               </div>
-              <h3 className="text-xl font-bold mb-4">Comprendre l'illusion</h3>
-              <p className="text-gris-sagesse">
-                Déconstruire les croyances qui te font penser que l'alcool t'apporte quelque chose de positif.
-              </p>
-            </div>
-
-            {/* Colonne 2 */}
-            <div
-              className="solution-column bg-blanc-purete p-6 rounded-lg shadow-md text-center"
-              style={{ opacity: isMobile ? 1 : 0, transform: isMobile ? "none" : "translateY(20px)" }}
-            >
-              <div className="flex justify-center mb-4">
-                <div className="w-16 h-16 bg-rouge-liberation/10 rounded-full flex items-center justify-center">
-                  <Flame className="h-8 w-8 text-rouge-liberation" />
-                </div>
+              <div>
+                <p className="text-lg text-gris-sagesse">
+                  Oublie l'idée que tu dois être <em>"plus fort(e)"</em> que l'alcool. La vraie puissance, pour sortir
+                  de là durablement, c'est de <strong>voir clair</strong> à travers la grande illusion.
+                </p>
               </div>
-              <h3 className="text-xl font-bold mb-4">Éteindre le désir</h3>
-              <p className="text-gris-sagesse">
-                Quand tu comprends vraiment, le désir s'éteint naturellement, sans effort ni lutte constante.
-              </p>
-            </div>
-
-            {/* Colonne 3 */}
-            <div
-              className="solution-column bg-blanc-purete p-6 rounded-lg shadow-md text-center"
-              style={{ opacity: isMobile ? 1 : 0, transform: isMobile ? "none" : "translateY(20px)" }}
-            >
-              <div className="flex justify-center mb-4">
-                <div className="w-16 h-16 bg-rouge-liberation/10 rounded-full flex items-center justify-center">
-                  <Heart className="h-8 w-8 text-rouge-liberation" />
-                </div>
-              </div>
-              <h3 className="text-xl font-bold mb-4">Cultiver la force intérieure</h3>
-              <p className="text-gris-sagesse">
-                Reconnecter avec tes ressources naturelles pour gérer émotions et stress sans béquille.
-              </p>
             </div>
           </div>
 
-          {/* CTA */}
+          {/* Analogie avec animation fadeInUp */}
+          <div
+            ref={analogyRef}
+            className="bg-blanc-purete p-6 rounded-lg shadow-md mb-8"
+            style={{ opacity: isMobile ? 1 : 0, transform: isMobile ? "none" : "translateY(30px)" }}
+            data-animate="true"
+          >
+            <div className="flex items-start mb-4">
+              <div className="w-12 h-12 bg-rouge-liberation/10 rounded-full flex items-center justify-center mr-4 flex-shrink-0">
+                <Lightbulb className="h-6 w-6 text-rouge-liberation" />
+              </div>
+              <div>
+                <p className="text-lg text-gris-sagesse mb-4">
+                  Pense à ça : As-tu besoin de volonté pour ne pas mettre ta main sur une plaque brûlante ?{" "}
+                  <strong>Non</strong>. Tu le fais naturellement, parce que tu as intégré, dans ton corps et ton esprit,
+                  que ça brûle.
+                </p>
+                <p className="text-lg text-gris-sagesse">
+                  C'est pareil avec l'alcool. Quand tu comprends vraiment que tu vas perdre à chaque fois, que tu n'as
+                  plus aucun intérêt à jouer, et que ton inconscient l'accepte totalement, alors le désir s'éteint.
+                  Vraiment. La lutte cesse. Et les jours de liberté s'accumulent, sans même t'en rendre compte.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          {/* Liste avec animation staggerFadeIn */}
+          <div
+            ref={listContainerRef}
+            className="bg-noir-profond text-blanc-purete p-6 rounded-lg shadow-md mb-8"
+            style={{ opacity: isMobile ? 1 : 0, transform: isMobile ? "none" : "translateY(30px)" }}
+            data-animate="true"
+          >
+            <h3 className="text-xl font-bold mb-4 text-yellow-400">Il ne s'agit plus de :</h3>
+            <ul className="space-y-4 list-none pl-0">
+              <li className="flex items-center list-none">
+                <X className="h-5 w-5 text-rouge-liberation mr-3 flex-shrink-0" />
+                <span>Serrer les dents pour résister jour après jour (c'est épuisant).</span>
+              </li>
+              <li className="flex items-center list-none">
+                <X className="h-5 w-5 text-rouge-liberation mr-3 flex-shrink-0" />
+                <span>Mener une guerre intérieure permanente.</span>
+              </li>
+              <li className="flex items-center list-none">
+                <X className="h-5 w-5 text-rouge-liberation mr-3 flex-shrink-0" />
+                <span>Rester dans le regret, la honte, le doute à vie.</span>
+              </li>
+            </ul>
+          </div>
+
+          {/* Suppression du div conclusionRef vide qui créait l'espace blanc */}
+          {/* Conclusion avec animation fadeInUp */}
+          {/*
+          <div
+            ref={conclusionRef}
+            className="bg-blanc-purete p-6 rounded-lg shadow-md mb-10"
+            style={{ opacity: isMobile ? 1 : 0, transform: isMobile ? "none" : "translateY(30px)" }}
+            data-animate="true"
+          >
+          </div>
+          */}
+
+          {/* CTA avec animation fadeInUp - sans effet de flou */}
           <div
             ref={ctaRef}
-            className="text-center mt-12"
+            className="text-center mt-4 mb-2"
             style={{ opacity: isMobile ? 1 : 0, transform: isMobile ? "none" : "translateY(30px)" }}
+            data-animate="true"
           >
-            <CTAButton variant="solution" pulse={false} />
+            <CTAButton variant="solution" pulse={false} text="✨ Découvrir Comment Atteindre cette Clarté" />
           </div>
         </div>
       </div>

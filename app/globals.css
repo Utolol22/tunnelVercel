@@ -78,19 +78,19 @@
     box-shadow: 0 10px 25px -5px rgba(196, 30, 58, 0.3);
   }
 
-  /* Scroll Snapping - MODIFIÉ pour être moins strict */
+  /* Scroll comportement - DÉSACTIVATION DU SNAP SCROLLING */
   html,
   body {
-    scroll-snap-type: y proximity; /* Changé de 'mandatory' à 'proximity' pour un comportement plus souple */
+    /* scroll-snap-type: y proximity; */ /* Désactivé */
     scroll-behavior: smooth;
     height: 100%;
     overflow-y: auto;
     overscroll-behavior-y: none; /* Empêche le rebond sur Safari mobile */
   }
 
-  /* Classe pour les sections avec snap */
+  /* Classe pour les sections - SNAP DÉSACTIVÉ */
   .snap-section {
-    scroll-snap-align: start;
+    /* scroll-snap-align: start; */ /* Désactivé */
     min-height: 100vh;
     position: relative;
     overflow: hidden;
@@ -176,8 +176,6 @@
   }
 }
 
-/* Ajouter à la fin du fichier globals.css */
-
 /* Styles pour les animations immédiates */
 [data-animate] {
   transition: opacity 0.5s ease, transform 0.5s ease;
@@ -187,6 +185,13 @@
   animation: none !important;
   opacity: 1 !important;
   transform: none !important;
+  transition: none !important;
+}
+
+[data-animate].animate-now * {
+  opacity: 1 !important;
+  transform: none !important;
+  transition: none !important;
 }
 
 /* Ajustement pour le scroll avec header fixe */
@@ -264,12 +269,10 @@ header nav a.active::after {
   }
 }
 
-/* Ajouter à la fin du fichier globals.css */
-
 /* Correctifs spécifiques pour Safari */
 .safari .snap-section {
   /* Safari a parfois des problèmes avec le scroll-snap-align */
-  scroll-snap-align: start;
+  /* scroll-snap-align: start; */ /* Désactivé */
   /* Utiliser une hauteur fixe pour éviter les problèmes de hauteur sur iOS */
   height: 100vh;
   height: calc(var(--vh, 1vh) * 100);
@@ -298,7 +301,7 @@ header nav a.active::after {
 /* Ajustements pour mobile */
 @media (max-width: 640px) {
   .snap-section {
-    scroll-snap-align: start;
+    /* scroll-snap-align: start; */ /* Désactivé */
     min-height: 90vh; /* Réduire légèrement la hauteur minimale sur mobile */
     scroll-margin-top: 60px; /* Réduire la marge pour le header sur mobile */
   }
@@ -347,8 +350,6 @@ header nav a.active::after {
   mix-blend-mode: overlay;
   pointer-events: none;
 }
-
-/* Ajouter ces styles à la fin du fichier */
 
 /* Forme du "0" ovale allongé */
 .zero-shape-tall {
@@ -400,12 +401,6 @@ header nav a.active::after {
   animation: zeroPulse 4s ease-in-out infinite;
 }
 
-/* Ajouter ces styles pour les transitions entre sections */
-.wave-transition {
-  position: relative;
-  overflow: hidden;
-}
-
 /* Animation de vague */
 @keyframes wave {
   0% {
@@ -445,8 +440,6 @@ header nav a.active::after {
   position: relative;
   z-index: 1;
 }
-
-/* Ajouter ces styles à la fin du fichier globals.css */
 
 /* Styles pour assurer la cohérence d'alignement entre les sections */
 .container {
@@ -536,30 +529,6 @@ header nav a.active::after {
   }
 }
 
-/* Styles génériques pour assurer la cohérence entre les sections */
-.container {
-  width: 100%;
-  max-width: 1280px;
-  margin-left: auto;
-  margin-right: auto;
-  padding-left: 1rem;
-  padding-right: 1rem;
-}
-
-@media (min-width: 640px) {
-  .container {
-    padding-left: 1.5rem;
-    padding-right: 1.5rem;
-  }
-}
-
-@media (min-width: 1024px) {
-  .container {
-    padding-left: 2rem;
-    padding-right: 2rem;
-  }
-}
-
 /* Assurer que les grilles sont bien alignées */
 .grid.w-full {
   width: 100%;
@@ -609,4 +578,76 @@ header nav a.active::after {
 
 .animate-pulse-slow {
   animation: pulse-slow 6s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* Ajoutons une règle CSS plus forte pour forcer l'affichage des éléments animés */
+/* Ajoutez ceci à la fin du fichier */
+
+/* Classe spéciale pour forcer l'affichage immédiat des sections */
+.force-visible {
+  opacity: 1 !important;
+  transform: none !important;
+  visibility: visible !important;
+}
+
+.force-visible * {
+  opacity: 1 !important;
+  transform: none !important;
+  visibility: visible !important;
+}
+
+/* Ajustement pour les animations GSAP */
+.gsap-trigger-now {
+  visibility: visible !important;
+}
+
+/* Suppression des puces pour la liste dans la section solution */
+.list-none {
+  list-style-type: none !important;
+}
+
+.list-none::before,
+.list-none::marker {
+  display: none !important;
+  content: none !important;
+}
+
+#solution .list-item {
+  list-style-type: none !important;
+  padding-left: 0 !important;
+}
+
+#solution .list-item::before,
+#solution .list-item::marker {
+  display: none !important;
+  content: none !important;
+}
+
+/* Styles spécifiques pour la liste avec croix rouges */
+#solution ul.list-none {
+  padding-left: 0;
+  margin: 0;
+}
+
+#solution ul.list-none li {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.75rem;
+  list-style-type: none;
+}
+
+#solution ul.list-none li:last-child {
+  margin-bottom: 0;
+}
+
+#solution ul.list-none li .lucide-x {
+  margin-right: 0.75rem;
+  flex-shrink: 0;
+}
+
+/* Assurer que les puces sont complètement supprimées */
+#solution ul.list-none li::before,
+#solution ul.list-none li::marker {
+  display: none !important;
+  content: none !important;
 }

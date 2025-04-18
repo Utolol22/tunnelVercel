@@ -19,38 +19,12 @@ import { Footer } from "@/components/sections/footer"
 import { SmoothScroll } from "@/components/ui/smooth-scroll"
 
 export default function Home() {
-  const [snapEnabled, setSnapEnabled] = useState(false)
   const [activeSection, setActiveSection] = useState("")
 
   // Effet pour charger Calendly et gérer les animations
   useEffect(() => {
-    // Effet pour activer le scroll snapping après un délai
-    const enableSnapAfterLoad = () => {
-      // Attendre que la page soit complètement chargée
-      setTimeout(() => {
-        document.documentElement.classList.add("snap-enabled")
-        setSnapEnabled(true)
-      }, 1000) // Délai de 1 seconde pour s'assurer que tout est chargé
-    }
-
-    // Activer le snap après le chargement complet
-    if (document.readyState === "complete") {
-      enableSnapAfterLoad()
-    } else {
-      window.addEventListener("load", enableSnapAfterLoad)
-    }
-
-    // Fonction pour désactiver temporairement le snap lors du défilement manuel
+    // Fonction pour déterminer la section active
     const handleUserScroll = () => {
-      // Désactiver le snap pendant le défilement
-      document.documentElement.classList.remove("snap-enabled")
-
-      // Réactiver après la fin du défilement
-      clearTimeout(window.scrollTimeout)
-      window.scrollTimeout = setTimeout(() => {
-        document.documentElement.classList.add("snap-enabled")
-      }, 1000)
-
       // Déterminer la section active
       const sections = ["hero", "problem", "solution", "program", "testimonials", "author", "faq"]
 
@@ -87,9 +61,19 @@ export default function Home() {
 
             // Activer les animations
             targetElement.classList.add("animate-now")
-            const animatedElements = targetElement.querySelectorAll("[data-animate]")
-            animatedElements.forEach((el) => {
-              el.classList.add("animate-now")
+            targetElement.classList.add("force-visible")
+
+            // Forcer l'activation des animations GSAP
+            window.dispatchEvent(new Event("scroll"))
+
+            // Forcer l'affichage de tous les éléments dans la section
+            const allElements = targetElement.querySelectorAll("*")
+            allElements.forEach((el) => {
+              if (el instanceof HTMLElement) {
+                el.classList.add("animate-now")
+                el.style.opacity = "1"
+                el.style.transform = "none"
+              }
             })
 
             setActiveSection(hash)
@@ -103,17 +87,13 @@ export default function Home() {
     window.addEventListener("hashchange", handleHashChange)
 
     return () => {
-      window.removeEventListener("load", enableSnapAfterLoad)
       window.removeEventListener("scroll", handleUserScroll)
       window.removeEventListener("hashchange", handleHashChange)
     }
   }, [])
 
-  // Fonction pour vérifier si on est sur mobile
-  const isMobile = typeof window !== "undefined" ? window.innerWidth < 768 : false
-
   return (
-    <main className={`min-h-screen ${snapEnabled && !isMobile ? "snap-mandatory" : ""}`}>
+    <main className="min-h-screen">
       <SmoothScroll />
       <HeroSection />
       <ProblemAgitationSection />

@@ -41,12 +41,34 @@ export function SmoothScroll() {
           })
 
           // Forcer l'activation des animations dans la section cible
+          targetElement.classList.add("animate-now")
+
+          // Forcer l'activation des animations dans la section
           setTimeout(() => {
+            // Déclencher un petit événement de scroll pour activer les animations GSAP
+            window.dispatchEvent(new Event("scroll"))
+
+            // Activer toutes les animations dans la section
             const animatedElements = targetElement.querySelectorAll("[data-animate]")
             animatedElements.forEach((el) => {
               el.classList.add("animate-now")
+
+              // Forcer l'opacité et la transformation pour les éléments avec style inline
+              if (el instanceof HTMLElement) {
+                el.style.opacity = "1"
+                el.style.transform = "none"
+              }
+
+              // Pour les éléments enfants avec style inline
+              const children = el.querySelectorAll("*")
+              children.forEach((child) => {
+                if (child instanceof HTMLElement) {
+                  child.style.opacity = "1"
+                  child.style.transform = "none"
+                }
+              })
             })
-          }, 300) // Petit délai pour laisser le temps au défilement de commencer
+          }, 300)
         }
       }
     }

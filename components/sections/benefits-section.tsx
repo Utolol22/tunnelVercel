@@ -13,7 +13,7 @@ export function BenefitsSection() {
     <motion.section
       ref={ref}
       id="benefits"
-      className="bg-[#F5E6D3] py-20 md:py-28 text-[#2A2A2A]"
+      className="bg-[#F5E6D3] py-10 md:py-16 text-[#2A2A2A]"
       initial="hidden"
       animate={inView ? "visible" : "hidden"}
       exit="exit"
@@ -22,7 +22,7 @@ export function BenefitsSection() {
       <div className="container mx-auto px-4">
         <div className="benefits__content max-w-4xl mx-auto">
           <motion.h2
-            className="font-heading text-3xl md:text-4xl text-center mb-10 text-[#1A1A1A]"
+            className="font-heading text-3xl md:text-4xl text-center mb-6 text-[#1A1A1A]"
             variants={fadeInVariants}
           >
             Pourquoi la Sobriété Devient Facile{" "}

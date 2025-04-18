@@ -70,6 +70,9 @@ export function CTAButton({
     }
   }
 
+  // Désactiver l'effet de pulse pour le bouton de la section solution
+  const shouldPulse = variant === "solution" ? false : pulse
+
   const getIcon = () => {
     switch (variant) {
       case "hero":
@@ -101,7 +104,7 @@ export function CTAButton({
         className,
       )}
     >
-      {pulse && (
+      {shouldPulse && (
         <div
           className="absolute rounded-xl bg-rouge-liberation opacity-20 animate-pulse-slower"
           style={{
@@ -119,7 +122,7 @@ export function CTAButton({
           id={`cta-button-${variant}`}
           variant="primary"
           size={getButtonSize() as any}
-          animation={pulse ? "pulse" : "none"}
+          animation={shouldPulse ? "pulse" : "none"}
           roundness="lg"
           fullWidthMobile={fullWidth}
           className={cn(

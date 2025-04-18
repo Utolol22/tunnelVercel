@@ -79,11 +79,30 @@ export function Header() {
         behavior: "smooth",
       })
 
-      // Forcer l'activation des animations
+      // Forcer l'activation des animations IMMÉDIATEMENT
+      targetElement.classList.add("animate-now")
       const animatedElements = targetElement.querySelectorAll("[data-animate]")
       animatedElements.forEach((el) => {
         el.classList.add("animate-now")
       })
+
+      // AJOUT: Forcer l'activation des animations GSAP
+      if (targetId === "solution") {
+        // Déclencher un petit événement de scroll pour activer les animations GSAP
+        setTimeout(() => {
+          window.dispatchEvent(new Event("scroll"))
+
+          // Forcer l'activation des animations dans la section solution
+          const solutionContent = document.querySelector(".solution__content")
+          if (solutionContent) {
+            const allElements = solutionContent.querySelectorAll("*")
+            allElements.forEach((el) => {
+              el.style.opacity = "1"
+              el.style.transform = "none"
+            })
+          }
+        }, 100)
+      }
 
       // Mettre à jour la section active
       setActiveSection(targetId)
