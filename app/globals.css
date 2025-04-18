@@ -362,6 +362,18 @@ header nav a.active::after {
   border-radius: 50% / 35%;
 }
 
+/* Forme du "0" ovale encore plus allongé */
+.zero-shape-taller {
+  border-radius: 50% / 30%;
+  width: 100%;
+  height: 100%;
+}
+
+/* Trou intérieur du "0" plus allongé */
+.zero-shape-taller-inner {
+  border-radius: 50% / 30%;
+}
+
 /* Animation de pulsation améliorée pour le "0" */
 @keyframes zeroPulse {
   0% {
@@ -563,4 +575,38 @@ header nav a.active::after {
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+/* Ajouter cette nouvelle animation plus lente après les animations existantes */
+@keyframes pulse-slower {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.85;
+    transform: scale(1.05);
+  }
+}
+
+.animate-pulse-slower {
+  animation: pulse-slower 6s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* Modifier l'animation pulse-slow existante pour la ralentir de 50% */
+@keyframes pulse-slow {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.85;
+    transform: scale(1.05);
+  }
+}
+
+.animate-pulse-slow {
+  animation: pulse-slow 6s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }

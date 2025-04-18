@@ -103,7 +103,7 @@ export function CTAButton({
     >
       {pulse && (
         <div
-          className="absolute rounded-xl bg-rouge-liberation opacity-20 animate-pulse-slow"
+          className="absolute rounded-xl bg-rouge-liberation opacity-20 animate-pulse-slower"
           style={{
             width: "100%",
             height: "100%",

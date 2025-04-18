@@ -126,11 +126,15 @@ export function HeroSection() {
       <div className="container mx-auto px-4 relative z-20">
         <div className="flex flex-col md:flex-row items-center justify-center gap-8 md:gap-12 lg:gap-16">
           {/* Image avec le "0" */}
-          <div ref={imageRef} className="hero__image w-64 h-96 md:w-80 md:h-[28rem] flex-shrink-0" data-animate="true">
+          <div
+            ref={imageRef}
+            className="hero__image w-64 h-[28rem] md:w-80 md:h-[32rem] flex-shrink-0"
+            data-animate="true"
+          >
             <div className="relative w-full h-full">
               {/* Effet de pulsation rouge discret */}
               <div
-                className="absolute inset-0 zero-shape-tall filter blur-[2px] animate-pulse-slow"
+                className="absolute inset-0 zero-shape-taller filter blur-[2px] animate-pulse-slow"
                 style={{
                   boxShadow: "0 0 15px 2px rgba(196, 30, 58, 0.4)",
                   transform: "scale(1.05)",
@@ -139,7 +143,7 @@ export function HeroSection() {
 
               {/* Forme du "0" en blanc avec effet de profondeur et liseret noir externe */}
               <div
-                className="absolute inset-0 zero-shape-tall bg-blanc-purete"
+                className="absolute inset-0 zero-shape-taller bg-blanc-purete"
                 style={{
                   boxShadow: "0 10px 30px rgba(0, 0, 0, 0.3), inset 0 0 10px rgba(0, 0, 0, 0.1)",
                   border: "2px solid #000000", // Liseret noir externe
@@ -147,7 +151,7 @@ export function HeroSection() {
               >
                 {/* Trou intérieur du "0" - transparent pour voir l'image */}
                 <div
-                  className="absolute inset-[15%] zero-shape-tall-inner bg-transparent"
+                  className="absolute inset-[10%] zero-shape-taller-inner bg-transparent"
                   style={{
                     border: "2px solid #000000", // Liseret noir interne
                   }}
@@ -155,16 +159,16 @@ export function HeroSection() {
               </div>
 
               {/* Image à l'intérieur du "0" */}
-              <div className="absolute inset-[15%] overflow-hidden zero-shape-tall-inner">
+              <div className="absolute inset-[10%] overflow-hidden zero-shape-taller-inner">
                 <Image
-                  src="/img/pierre-portrait.png"
+                  src="/img/pierre-portrait-new.png"
                   alt="Pierre, coach en libération de l'alcool"
                   fill
                   className="object-cover object-center"
                   sizes="(max-width: 640px) 80vw, (max-width: 1024px) 60vw, 50vw"
                   priority
                   placeholder="blur"
-                  blurDataURL={blurDataURLs["pierre-portrait"]}
+                  blurDataURL={blurDataURLs["pierre-portrait-new"]}
                 />
               </div>
             </div>
@@ -172,7 +176,7 @@ export function HeroSection() {
 
           {/* Contenu textuel */}
           <div ref={contentRef} className="hero__content max-w-2xl text-center md:text-left" data-animate="true">
-            <p className="text-sm sm:text-base md:text-lg text-sable-introspection mb-4 animate-pulse-slow">
+            <p className="text-sm sm:text-base md:text-lg text-sable-introspection mb-4 animate-pulse-slower">
               <span className="text-base sm:text-lg md:text-xl font-semibold">
                 Jour 0 : Le début du vrai changement
               </span>
@@ -184,7 +188,7 @@ export function HeroSection() {
               Découvre comment sortir du cycle sans lutte et retrouver ta liberté.
             </p>
             <div className="hero__cta">
-              <CTAButton variant="hero" pulse={true} text="Provoque ton déclic !" />
+              <CTAButton variant="hero" pulse={false} text="Provoque ton déclic !" />
             </div>
           </div>
         </div>
