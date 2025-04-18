@@ -128,6 +128,25 @@ export const pulseVariants = {
   },
 }
 
+// Nouvelle variante avec amplitude et vitesse réduites de 50%
+export const subtlePulseVariants = {
+  hidden: { opacity: 0.95, scale: 1 },
+  visible: {
+    opacity: 1,
+    scale: [1, 1.025, 1], // Amplitude réduite de 50% (de 1.05 à 1.025)
+    transition: {
+      duration: 3, // Vitesse réduite de 50% (de 1.5 à 3)
+      ease: "easeInOut",
+      repeat: Number.POSITIVE_INFINITY,
+      repeatType: "reverse",
+    },
+  },
+  exit: {
+    opacity: 0,
+    transition: { duration: 0.3 },
+  },
+}
+
 // Variants pour les éléments avec délai personnalisé
 export const createDelayedVariants = (delay: number) => ({
   hidden: { opacity: 0, y: 20 },

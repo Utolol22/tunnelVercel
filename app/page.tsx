@@ -5,7 +5,7 @@ import { HeroSection } from "@/components/sections/hero-section"
 import { ProblemAgitationSection } from "@/components/sections/problem-section"
 import { SolutionSection } from "@/components/sections/solution-section"
 import { MethodSection } from "@/components/sections/method-section"
-import { BenefitsSection } from "@/components/sections/benefits-section"
+import { StruggleCessationSection } from "@/components/sections/struggle-cessation-section"
 import { FutureVisionSection } from "@/components/sections/future-vision-section"
 import { ProgramSection } from "@/components/sections/program-section"
 import { TestimonialsSection } from "@/components/sections/testimonials-section"
@@ -99,7 +99,7 @@ export default function Home() {
       <ProblemAgitationSection />
       <SolutionSection />
       <MethodSection />
-      <BenefitsSection />
+      <StruggleCessationSection />
       <FutureVisionSection />
       <ProgramSection />
       <TestimonialsSection />

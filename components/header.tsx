@@ -11,6 +11,7 @@ const navItems = [
   { name: "Accueil", href: "#hero" },
   { name: "Le problème", href: "#problem" },
   { name: "La solution", href: "#solution" },
+  { name: "La libération", href: "#struggle-cessation" },
   { name: "Le programme", href: "#program" },
   { name: "Témoignages", href: "#testimonials" },
   { name: "À propos", href: "#author" },
