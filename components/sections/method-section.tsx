@@ -71,11 +71,11 @@ export function MethodSection() {
                 </p>
                 <p>
                   L'objectif n'est pas de t'apprendre à vivre <em>avec</em> une envie latente en te considérant comme
-                  *"malade à vie"*.
+                  <strong className="text-rouge-liberation"> "malade à vie"</strong>.
                 </p>
                 <p>
-                  L'objectif est <strong>d'éteindre cette envie pour de bon</strong>, pour que tu redeviennes
-                  simplement... toi. Libre.
+                  On vas éteindre cette envie pour de bon, pour que tu réalise à quel point en arrétant : '' Tu ne perds
+                  absolument rien ! "
                 </p>
               </div>
             </motion.div>
