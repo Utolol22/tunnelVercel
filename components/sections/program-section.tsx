@@ -237,7 +237,7 @@ export function ProgramSection() {
 
         {/* Ligne de progression verticale */}
         <div className="relative max-w-5xl mx-auto">
-          <div className="absolute left-8 md:left-1/2 top-0 bottom-0 w-2 bg-gray-200/70 rounded-full transform -translate-x-1/2 z-10">
+          <div className="absolute left-4 sm:left-8 md:left-1/2 top-0 bottom-0 w-1 sm:w-2 bg-gray-200/70 rounded-full transform -translate-x-1/2 z-10">
             <motion.div
               ref={progressLineRef}
               className="absolute top-0 left-0 w-full bg-rouge-liberation rounded-full"
@@ -250,17 +250,17 @@ export function ProgramSection() {
           </div>
 
           {/* Phases */}
-          <div className="relative z-20 space-y-24 md:space-y-32">
+          <div className="relative z-20 space-y-16 md:space-y-24 lg:space-y-32 w-full px-4 md:px-0">
             {phases.map((phase, index) => (
               <div
                 key={phase.id}
                 ref={(el) => (phaseRefs.current[index] = el)}
-                className={`relative ${index % 2 === 0 ? "md:ml-auto md:mr-12" : "md:mr-auto md:ml-12"} md:w-[80%] max-w-3xl`}
+                className={`relative w-full ${index % 2 === 0 ? "md:ml-auto md:mr-12" : "md:mr-auto md:ml-12"} md:w-[80%] max-w-3xl`}
               >
                 {/* Marqueur sur la ligne de progression */}
                 <div
                   id={`phase-marker-${index}`}
-                  className={`absolute left-8 md:left-0 top-12 w-8 h-8 bg-blanc-purete border-4 border-rouge-liberation rounded-full transform -translate-x-1/2 z-20 transition-all duration-300 ease-out
+                  className={`absolute left-4 sm:left-8 md:left-0 top-12 w-6 h-6 sm:w-8 sm:h-8 bg-blanc-purete border-4 border-rouge-liberation rounded-full transform -translate-x-1/2 z-20 transition-all duration-300 ease-out
                     ${index === activePhaseIndex ? "scale-125 bg-rouge-liberation border-blanc-purete" : ""}
                   `}
                 >
@@ -276,7 +276,7 @@ export function ProgramSection() {
                     boxShadow: "0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.05)",
                   }}
                   transition={{ type: "spring", stiffness: 300, damping: 20 }}
-                  className="ml-16 md:ml-0"
+                  className="ml-12 sm:ml-16 md:ml-0 w-full"
                 >
                   <Card className="border-none rounded-xl overflow-hidden shadow-md hover:shadow-lg transition-shadow duration-300">
                     <CardContent className="p-0">

@@ -11,7 +11,6 @@ import { ProgramSection } from "@/components/sections/program-section"
 import { TestimonialsSection } from "@/components/sections/testimonials-section"
 import { CallToActionSection } from "@/components/sections/call-to-action-section"
 import { AuthorSection } from "@/components/sections/author-section"
-import { DifferentiationSection } from "@/components/sections/differentiation-section"
 import { TargetAudienceSection } from "@/components/sections/target-audience-section"
 import { FaqSection } from "@/components/sections/faq-section"
 import { FinalCtaSection } from "@/components/sections/final-cta-section"
@@ -105,7 +104,6 @@ export default function Home() {
       <TestimonialsSection />
       <CallToActionSection />
       <AuthorSection />
-      <DifferentiationSection />
       <TargetAudienceSection />
       <FaqSection />
       <FinalCtaSection />

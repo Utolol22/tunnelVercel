@@ -17,6 +17,17 @@ if (typeof window !== "undefined") {
 // Données des témoignages - Réorganisées avec Laetitia en premier
 const testimonials = [
   {
+    id: 2,
+    name: "Nico",
+    info: "10 mois d'arrêt",
+    quote:
+      "Grâce à Uto, j'ai complètement changé mon rapport à l'alcool et ma vision de cette substance... L'accompagnement empathique et attentionné qu'il a eu depuis le départ, ont été déterminants dans mon arrêt depuis 10 mois à présent, ce que je n'aurais jamais cru possible...",
+    image: "/img/testimonial-2.png",
+    emojis: true,
+    highlighted: "J'ai complètement changé mon rapport à l'alcool, ce que je n'aurais jamais cru possible.",
+    showFullImage: true,
+  },
+  {
     id: 4, // Gardé l'ID original pour maintenir la cohérence
     name: "Laetitia",
     info: "8 mois d'abstinence",
@@ -46,17 +57,6 @@ Il y a encore du travail, mais par rapport à l'alcool, je n'ai plus du tout à 
       "Pierre transmet naturellement la motivation à se remettre dans une dynamique de vie et c'est concret, par le corps, la compréhension de soi. L'accompagnement qu'il propose inspire, nourris et change le quotidien. Merci pour les ressources qui changent la Vie.",
     image: "/img/testimonial-1.png",
     highlighted: "L'accompagnement qu'il propose inspire, nourris et change le quotidien.",
-    showFullImage: true,
-  },
-  {
-    id: 2,
-    name: "Nico",
-    info: "10 mois d'arrêt",
-    quote:
-      "Grâce à Uto, j'ai complètement changé mon rapport à l'alcool et ma vision de cette substance... L'accompagnement empathique et attentionné qu'il a eu depuis le départ, ont été déterminants dans mon arrêt depuis 10 mois à présent, ce que je n'aurais jamais cru possible...",
-    image: "/img/testimonial-2.png",
-    emojis: true,
-    highlighted: "J'ai complètement changé mon rapport à l'alcool, ce que je n'aurais jamais cru possible.",
     showFullImage: true,
   },
   {
@@ -259,14 +259,14 @@ export function TestimonialsSection() {
           </div>
 
           {/* Carrousel de témoignages */}
-          <div ref={carouselRef} className="relative mb-16">
-            <div className="overflow-hidden rounded-xl">
+          <div ref={carouselRef} className="relative mb-16 w-full overflow-hidden">
+            <div className="overflow-hidden rounded-xl w-full">
               <div
-                className="flex transition-transform duration-500 ease-in-out"
+                className="flex w-full transition-transform duration-500 ease-in-out"
                 style={{ transform: `translateX(-${activeIndex * 100}%)` }}
               >
                 {testimonials.map((testimonial) => (
-                  <div key={testimonial.id} className="w-full flex-shrink-0 px-4">
+                  <div key={testimonial.id} className="w-full flex-shrink-0 px-2 sm:px-4">
                     <div className="bg-white/5 rounded-xl overflow-hidden border border-rouge-liberation/20 shadow-xl">
                       <div className="p-6 flex flex-col items-center">
                         {/* Affichage de la capture d'écran complète */}
@@ -293,7 +293,7 @@ export function TestimonialsSection() {
                         )}
 
                         {/* Contenu du témoignage */}
-                        <div className="text-center">
+                        <div className="text-center w-full px-2 sm:px-4">
                           <div className="flex items-center justify-center mb-4">
                             <h3 className="text-xl font-bold text-blanc-purete">{testimonial.name}</h3>
                             {testimonial.emojis && (
@@ -311,7 +311,7 @@ export function TestimonialsSection() {
                               <p className="text-lg italic mb-4">"{testimonial.quote.substring(0, 100)}..."</p>
                               <button
                                 onClick={() => openFullStory(testimonial)}
-                                className="flex items-center justify-center mx-auto text-yellow-400 hover:text-yellow-300 transition-colors bg-white/5 px-4 py-2 rounded-lg border border-yellow-400/30 hover:bg-white/10"
+                                className="flex items-center justify-center mx-auto text-yellow-400 hover:text-yellow-300 transition-colors bg-white/5 px-3 py-2 sm:px-4 rounded-lg border border-yellow-400/30 hover:bg-white/10 text-sm sm:text-base w-full sm:w-auto"
                               >
                                 <span className="mr-2">Lire le témoignage complet</span>
                                 <ExternalLink className="w-4 h-4" />
@@ -339,14 +339,14 @@ export function TestimonialsSection() {
             {/* Contrôles du carrousel */}
             <button
               onClick={prevSlide}
-              className="absolute top-1/2 left-0 -translate-y-1/2 -translate-x-2 bg-noir-profond/80 text-blanc-purete rounded-full p-2 hover:bg-rouge-liberation/80 transition-colors"
+              className="absolute top-1/2 left-0 -translate-y-1/2 translate-x-1 sm:-translate-x-2 bg-noir-profond/80 text-blanc-purete rounded-full p-1 sm:p-2 hover:bg-rouge-liberation/80 transition-colors z-20"
               aria-label="Témoignage précédent"
             >
               <ChevronLeft size={24} />
             </button>
             <button
               onClick={nextSlide}
-              className="absolute top-1/2 right-0 -translate-y-1/2 translate-x-2 bg-noir-profond/80 text-blanc-purete rounded-full p-2 hover:bg-rouge-liberation/80 transition-colors"
+              className="absolute top-1/2 right-0 -translate-y-1/2 -translate-x-1 sm:translate-x-2 bg-noir-profond/80 text-blanc-purete rounded-full p-1 sm:p-2 hover:bg-rouge-liberation/80 transition-colors z-20"
               aria-label="Témoignage suivant"
             >
               <ChevronRight size={24} />
