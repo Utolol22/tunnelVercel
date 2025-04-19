@@ -1,151 +1,342 @@
 "use client"
-import { RefreshCw, Search, Sprout, Flame, Coffee } from "lucide-react"
-import { motion } from "framer-motion"
-import { useInView } from "react-intersection-observer"
-import { containerVariants, fadeInVariants, listItemVariants } from "@/lib/motionVariants"
-import { useState } from "react"
+import { useRef, useEffect, useState } from "react"
+import { motion, useScroll, useTransform } from "framer-motion"
+import { Card, CardContent } from "@/components/ui/card"
+import { Anchor, Search, Lightbulb, Heart, Star } from "lucide-react"
 import { CTAButton } from "@/components/ui/cta-button"
-import { CTABanner } from "@/components/ui/cta-banner"
+import gsap from "gsap"
+import { ScrollTrigger } from "gsap/ScrollTrigger"
+
+// Enregistrer le plugin ScrollTrigger
+if (typeof window !== "undefined") {
+  gsap.registerPlugin(ScrollTrigger)
+}
+
+// Données des phases
+const phases = [
+  {
+    id: 1,
+    icon: <Anchor className="w-12 h-12 text-rouge-liberation" />,
+    title: "Ancrage & Sécurité",
+    description: [
+      "Poser les bases : Faire le point honnêtement sur vos habitudes.",
+      "Sécuriser l'environnement immédiat pour faciliter les premiers jours.",
+      "Créer un espace de confiance et de stabilité pour démarrer sereinement.",
+    ],
+  },
+  {
+    id: 2,
+    icon: <Search className="w-12 h-12 text-rouge-liberation" />,
+    title: "Comprendre le Piège",
+    description: [
+      "Démonter les illusions sur ce que l'alcool semble apporter.",
+      "Observer vos déclencheurs, pensées automatiques et émotions liées.",
+      "Comprendre la mécanique personnelle de votre cycle d'addiction.",
+    ],
+  },
+  {
+    id: 3,
+    icon: <Lightbulb className="w-12 h-12 text-rouge-liberation" />,
+    title: "Le Déclic : Éteindre le Désir",
+    description: [
+      "Intégrer la CLARTÉ : Voir l'alcool comme le poison/l'arnaque qu'il est.",
+      "Observer le désir perdre son sens et sa force naturellement.",
+      "Renforcer les nouvelles perspectives où l'alcool devient non pertinent.",
+    ],
+  },
+  {
+    id: 4,
+    icon: <Heart className="w-12 h-12 text-rouge-liberation" />,
+    title: "Renforcer Vos Vraies Forces",
+    description: [
+      "Se tourner vers vos ressources intérieures (calme, résilience).",
+      "Apprendre à gérer stress et émotions sainement, sans béquille.",
+      "Explorer vos aspirations profondes maintenant libérées.",
+    ],
+  },
+  {
+    id: 5,
+    icon: <Star className="w-12 h-12 text-rouge-liberation" />,
+    title: "Vivre Libre & Aligné",
+    description: [
+      "Consolider l'identité d'une personne libre qui n'a plus besoin d'alcool.",
+      "Ancrer les nouvelles habitudes de vie et de pensée pour le long terme.",
+      "Vivre une sobriété naturelle, paisible et épanouissante.",
+    ],
+  },
+]
 
 export function ProgramSection() {
-  const [ref, inView] = useInView({
-    triggerOnce: true,
-    threshold: 0.1,
+  const sectionRef = useRef<HTMLElement>(null)
+  const progressLineRef = useRef<HTMLDivElement>(null)
+  const phaseRefs = useRef<(HTMLDivElement | null)[]>([])
+  const [activePhaseIndex, setActivePhaseIndex] = useState<number | null>(null)
+
+  // Animation de la ligne de progression avec Framer Motion
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start center", "end center"],
   })
 
-  const [activePhase, setActivePhase] = useState(1)
+  // Effet pour initialiser les animations GSAP
+  useEffect(() => {
+    if (!sectionRef.current) return
 
-  const phases = [
-    {
-      id: 1,
-      icon: <RefreshCw className="w-8 h-8 text-rouge-liberation" />,
-      title: "Phase 1 – Ancrage",
-      description: "Tu poses les bases et sécurises ton environnement pour démarrer sereinement.",
-    },
-    {
-      id: 2,
-      icon: <Search className="w-8 h-8 text-rouge-liberation" />,
-      title: "Phase 2 – Décrypter le piège",
-      description: "Tu identifies tes déclencheurs et comprends les mécanismes de l'addiction.",
-    },
-    {
-      id: 3,
-      icon: <Sprout className="w-8 h-8 text-rouge-liberation" />,
-      title: "Phase 3 – Éteindre le désir",
-      description: "Tu intègres profondément que l'alcool n'apporte rien de positif, le désir s'éteint naturellement.",
-    },
-    {
-      id: 4,
-      icon: <Flame className="w-8 h-8 text-rouge-liberation" />,
-      title: "Phase 4 – Renforcer les ressources",
-      description: "Tu développes des outils pour gérer le stress et les émotions sainement, sans béquille.",
-    },
-    {
-      id: 5,
-      icon: <Coffee className="w-8 h-8 text-rouge-liberation" />,
-      title: "Phase 5 – Incarner la vie sobre",
-      description: "Tu consolides ta nouvelle identité libre et tes habitudes de vie épanouissantes.",
-    },
-  ]
+    // Animation du titre et de l'introduction
+    gsap.fromTo(
+      ".program-title",
+      { opacity: 0, y: 30 },
+      {
+        opacity: 1,
+        y: 0,
+        duration: 0.8,
+        ease: "power2.out",
+        scrollTrigger: {
+          trigger: ".program-title",
+          start: "top 80%",
+          end: "top 60%",
+          scrub: 1,
+        },
+      },
+    )
+
+    gsap.fromTo(
+      ".program-intro",
+      { opacity: 0, y: 30 },
+      {
+        opacity: 1,
+        y: 0,
+        duration: 0.8,
+        ease: "power2.out",
+        scrollTrigger: {
+          trigger: ".program-intro",
+          start: "top 80%",
+          end: "top 60%",
+          scrub: 1,
+        },
+      },
+    )
+
+    // Animation de la ligne de progression
+    gsap.fromTo(
+      progressLineRef.current,
+      { scaleY: 0 },
+      {
+        scaleY: 1,
+        duration: 1,
+        ease: "none",
+        transformOrigin: "top center",
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: "top center",
+          end: "bottom center",
+          scrub: true,
+        },
+      },
+    )
+
+    // Animation des phases
+    phaseRefs.current.forEach((phaseRef, index) => {
+      if (!phaseRef) return
+
+      // Animation d'entrée de la carte
+      gsap.fromTo(
+        phaseRef,
+        { opacity: 0, y: 50 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.8,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: phaseRef,
+            start: "top 80%",
+            end: "top 60%",
+            scrub: 1,
+            onEnter: () => setActivePhaseIndex(index),
+            onEnterBack: () => setActivePhaseIndex(index),
+          },
+        },
+      )
+
+      // Animation des éléments internes avec staggering
+      const elements = phaseRef.querySelectorAll(".phase-content > *")
+      gsap.fromTo(
+        elements,
+        { opacity: 0, y: 20 },
+        {
+          opacity: 1,
+          y: 0,
+          stagger: 0.1,
+          duration: 0.6,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: phaseRef,
+            start: "top 70%",
+            end: "top 50%",
+            scrub: 1,
+          },
+        },
+      )
+    })
+
+    // Animation du CTA
+    gsap.fromTo(
+      ".program-cta",
+      { opacity: 0, y: 30 },
+      {
+        opacity: 1,
+        y: 0,
+        duration: 0.8,
+        ease: "power2.out",
+        scrollTrigger: {
+          trigger: ".program-cta",
+          start: "top 80%",
+          end: "top 60%",
+          scrub: 1,
+        },
+      },
+    )
+
+    return () => {
+      // Nettoyer les ScrollTriggers
+      ScrollTrigger.getAll().forEach((trigger) => trigger.kill())
+    }
+  }, [])
+
+  // Effet pour mettre à jour les marqueurs de phase active
+  useEffect(() => {
+    if (activePhaseIndex === null) return
+
+    // Mettre à jour les classes des marqueurs
+    phaseRefs.current.forEach((_, index) => {
+      const marker = document.getElementById(`phase-marker-${index}`)
+      if (!marker) return
+
+      if (index === activePhaseIndex) {
+        marker.classList.add("active-marker")
+      } else {
+        marker.classList.remove("active-marker")
+      }
+    })
+  }, [activePhaseIndex])
 
   return (
-    <motion.section
-      ref={ref}
-      id="program"
-      className="bg-[#F5E6D3] py-20 md:py-28"
-      initial="hidden"
-      animate={inView ? "visible" : "hidden"}
-      exit="exit"
-      variants={containerVariants}
-    >
-      <div className="container mx-auto px-4">
-        <div className="program__content max-w-4xl mx-auto">
-          <motion.h2
-            className="font-heading text-3xl md:text-4xl text-center mb-6 text-[#1A1A1A]"
-            variants={fadeInVariants}
-          >
-            Voilà comment on avance ensemble.
-          </motion.h2>
-          <motion.div
-            className="program__intro text-base md:text-lg text-center mb-10 md:mb-12 max-w-3xl mx-auto space-y-3 text-[#2A2A2A]"
-            variants={fadeInVariants}
-          >
-            <p>Un parcours structuré en 5 phases, adapté à ton rythme et à tes besoins spécifiques.</p>
-          </motion.div>
+    <section ref={sectionRef} id="program" className="bg-[#F5E6D3] py-20 md:py-28 relative overflow-hidden">
+      <div className="container mx-auto px-4 relative">
+        {/* Titre et introduction */}
+        <div className="max-w-4xl mx-auto text-center mb-16">
+          <h2 className="program-title font-heading text-3xl md:text-4xl mb-6 text-[#1A1A1A]">
+            Votre Chemin Vers la Liberté Sans Effort : Les 5 Étapes Clés
+          </h2>
+          <p className="program-intro text-base md:text-lg text-[#2A2A2A] max-w-3xl mx-auto">
+            Un parcours structuré qui transforme la <strong>compréhension</strong> en <strong>liberté</strong>, adapté à
+            votre rythme et à vos besoins spécifiques. Chaque étape vous rapproche d'une sobriété naturelle et paisible.
+          </p>
+        </div>
 
-          {/* Timeline horizontale */}
-          <div className="mb-12">
-            <div className="flex overflow-x-auto pb-4 hide-scrollbar">
-              <div className="flex space-x-2 md:space-x-4 min-w-max">
-                {phases.map((phase) => (
-                  <button
-                    key={phase.id}
-                    onClick={() => setActivePhase(phase.id)}
-                    className={`px-4 py-2 rounded-full transition-all ${
-                      activePhase === phase.id
-                        ? "bg-rouge-liberation text-white"
-                        : "bg-white text-gris-sagesse hover:bg-rouge-liberation/10"
-                    }`}
-                  >
-                    Phase {phase.id}
-                  </button>
-                ))}
-              </div>
-            </div>
+        {/* Ligne de progression verticale */}
+        <div className="relative max-w-5xl mx-auto">
+          <div className="absolute left-8 md:left-1/2 top-0 bottom-0 w-2 bg-gray-200/70 rounded-full transform -translate-x-1/2 z-10">
+            <motion.div
+              ref={progressLineRef}
+              className="absolute top-0 left-0 w-full bg-rouge-liberation rounded-full"
+              style={{
+                height: "100%",
+                scaleY: useTransform(scrollYProgress, [0, 1], [0, 1]),
+                transformOrigin: "top",
+              }}
+            />
           </div>
 
-          {/* Contenu de la phase active */}
-          <motion.div
-            className="bg-blanc-purete p-6 rounded-lg shadow-md"
-            variants={listItemVariants}
-            key={activePhase}
-            initial="hidden"
-            animate="visible"
-            exit="exit"
-          >
-            <div className="flex items-center mb-4">
-              {phases[activePhase - 1].icon}
-              <h3 className="text-xl font-bold text-[#1A1A1A] ml-3">{phases[activePhase - 1].title}</h3>
-            </div>
-            <p className="text-[#2A2A2A]">{phases[activePhase - 1].description}</p>
-          </motion.div>
-
-          {/* CTA */}
-          <motion.div className="text-center mt-12" variants={fadeInVariants}>
-            <div className="relative inline-block">
-              {/* Effet de halo ajusté */}
+          {/* Phases */}
+          <div className="relative z-20 space-y-24 md:space-y-32">
+            {phases.map((phase, index) => (
               <div
-                className="absolute rounded-xl bg-rouge-liberation opacity-20 animate-pulse-slow"
-                style={{
-                  width: "100%",
-                  height: "100%",
-                  top: 0,
-                  left: 0,
-                  filter: "blur(8px)",
-                  transform: "scale(1)",
-                }}
-              ></div>
-              <CTAButton
-                variant="program"
-                pulse={true}
-                badge={{
-                  text: "COMMENCE MAINTENANT",
-                  color: "bg-yellow-400",
-                }}
-                href="https://calendly.com/utolol22"
-              />
-            </div>
-          </motion.div>
+                key={phase.id}
+                ref={(el) => (phaseRefs.current[index] = el)}
+                className={`relative ${index % 2 === 0 ? "md:ml-auto md:mr-12" : "md:mr-auto md:ml-12"} md:w-[80%] max-w-3xl`}
+              >
+                {/* Marqueur sur la ligne de progression */}
+                <div
+                  id={`phase-marker-${index}`}
+                  className={`absolute left-8 md:left-0 top-12 w-8 h-8 bg-blanc-purete border-4 border-rouge-liberation rounded-full transform -translate-x-1/2 z-20 transition-all duration-300 ease-out
+                    ${index === activePhaseIndex ? "scale-125 bg-rouge-liberation border-blanc-purete" : ""}
+                  `}
+                >
+                  <span className="absolute inset-0 flex items-center justify-center text-xs font-bold text-rouge-liberation">
+                    {phase.id}
+                  </span>
+                </div>
+
+                {/* Carte de phase */}
+                <motion.div
+                  whileHover={{
+                    scale: 1.02,
+                    boxShadow: "0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.05)",
+                  }}
+                  transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                  className="ml-16 md:ml-0"
+                >
+                  <Card className="border-none rounded-xl overflow-hidden shadow-md hover:shadow-lg transition-shadow duration-300">
+                    <CardContent className="p-0">
+                      {/* En-tête de phase avec dégradé */}
+                      <div className="bg-gradient-to-r from-rouge-liberation to-rouge-liberation/80 text-blanc-purete p-6 flex items-center">
+                        <div className="w-16 h-16 rounded-full bg-blanc-purete/20 flex items-center justify-center mr-4 backdrop-blur-sm">
+                          {phase.icon}
+                        </div>
+                        <h3 className="text-xl md:text-2xl font-bold">{phase.title}</h3>
+                      </div>
+
+                      {/* Contenu de la phase */}
+                      <div className="p-6 bg-blanc-purete phase-content">
+                        <ul className="space-y-4">
+                          {phase.description.map((point, i) => (
+                            <li key={i} className="flex items-start">
+                              <span className="text-rouge-liberation font-bold text-lg mr-3">•</span>
+                              <span className="text-[#2A2A2A] text-base md:text-lg">{point}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    </CardContent>
+                  </Card>
+                </motion.div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* CTA */}
+        <div className="program-cta text-center mt-24 max-w-3xl mx-auto">
+          <div className="relative inline-block">
+            <div
+              className="absolute rounded-xl bg-rouge-liberation opacity-20 animate-pulse-slow"
+              style={{
+                width: "100%",
+                height: "100%",
+                top: 0,
+                left: 0,
+                filter: "blur(8px)",
+                transform: "scale(1.05)",
+              }}
+            ></div>
+            <CTAButton
+              variant="program"
+              pulse={true}
+              badge={{
+                text: "COMMENCEZ VOTRE TRANSFORMATION",
+                color: "bg-yellow-400",
+              }}
+              text="Discutons de Votre Parcours Personnalisé (Appel Gratuit)"
+              href="https://calendly.com/uto-ias"
+            />
+          </div>
+          <p className="mt-4 text-sm text-gris-sagesse/80 italic">
+            Découvrez comment ce parcours peut s'adapter à votre situation unique
+          </p>
         </div>
       </div>
-
-      {/* Bannière CTA entre les sections */}
-      <CTABanner
-        text="Prêt(e) à commencer ton parcours ?"
-        subtext="Réserve ton appel découverte gratuit"
-        className="mt-16"
-        bgColor="bg-noir-profond"
-      />
-    </motion.section>
+    </section>
   )
 }

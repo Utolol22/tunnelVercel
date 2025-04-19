@@ -9,7 +9,7 @@ interface ProgressBarProps {
   className?: string
 }
 
-export function ProgressBar({ href = "https://calendly.com/utolol22", className }: ProgressBarProps) {
+export function ProgressBar({ href = "https://calendly.com/uto-ias", className }: ProgressBarProps) {
   const [progress, setProgress] = useState(0)
 
   useEffect(() => {

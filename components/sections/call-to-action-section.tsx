@@ -107,7 +107,7 @@ export function CallToActionSection() {
                 transform: "scale(1)",
               }}
             ></div>
-            <Link href="https://calendly.com/utolol22" target="_blank" rel="noopener noreferrer">
+            <Link href="https://calendly.com/uto-ias" target="_blank" rel="noopener noreferrer">
               <Button
                 variant="primary"
                 size="xl"
@@ -131,7 +131,7 @@ export function CallToActionSection() {
       {/* Sticky CTA */}
       {isSticky && (
         <div className="fixed bottom-6 right-6 z-50 transition-all duration-300 transform translate-y-0">
-          <Link href="https://calendly.com/utolol22" target="_blank" rel="noopener noreferrer">
+          <Link href="https://calendly.com/uto-ias" target="_blank" rel="noopener noreferrer">
             <Button
               variant="primary"
               size="lg"

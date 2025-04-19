@@ -16,7 +16,7 @@ const navItems = [
   { name: "Témoignages", href: "#testimonials" },
   { name: "À propos", href: "#author" },
   { name: "FAQ", href: "#faq" },
-  { name: "Contact", href: "https://calendly.com/utolol22" },
+  { name: "Contact", href: "https://calendly.com/uto-ias" },
 ]
 
 export function Header() {

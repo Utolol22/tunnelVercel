@@ -12,7 +12,7 @@ interface StickyCTAProps {
 }
 
 export function StickyCTA({
-  href = "https://calendly.com/utolol22",
+  href = "https://calendly.com/uto-ias",
   text = "Réserve ton appel offert",
   className,
 }: StickyCTAProps) {

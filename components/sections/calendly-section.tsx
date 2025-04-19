@@ -93,7 +93,7 @@ export function CalendlySection() {
           {/* Bouton CTA amélioré avec effet visuel */}
           <div className={`mb-16 relative ${ctaHighlighted ? "animate-fadeScale" : ""}`}>
             <div className="absolute inset-0 rounded-xl bg-rouge-liberation opacity-20 blur-lg transform -translate-y-2 scale-105 animate-pulse-slow"></div>
-            <Link href="#calendly-widget">
+            <Link href="https://calendly.com/uto-ias">
               <Button
                 variant="primary"
                 size="xl"
@@ -117,7 +117,7 @@ export function CalendlySection() {
             <div
               id="calendly-widget"
               className="calendly-inline-widget"
-              data-url="https://calendly.com/utolol22"
+              data-url="https://calendly.com/uto-ias"
               style={{ minWidth: "320px", height: "700px" }}
             >
               {/* Calendly injects iframe here */}

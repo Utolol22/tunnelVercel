@@ -651,3 +651,60 @@ header nav a.active::after {
   display: none !important;
   content: none !important;
 }
+
+/* Ajouter ces styles à la fin de votre fichier globals.css */
+
+/* Effet de lueur pour les bordures des avatars */
+.shadow-glow {
+  box-shadow: 0 0 15px rgba(250, 204, 21, 0.3);
+}
+
+/* Animation pour les citations mises en valeur */
+@keyframes quoteFloat {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+.highlight-quote:hover {
+  animation: quoteFloat 3s ease-in-out infinite;
+  border-color: rgba(250, 204, 21, 0.6);
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+}
+
+/* Amélioration du modal pour le témoignage complet */
+.dialog-content {
+  max-width: 90vw;
+  width: 800px;
+}
+
+@media (max-width: 640px) {
+  .dialog-content {
+    width: 95vw;
+    padding: 1rem;
+  }
+}
+
+/* Styles pour les captures d'écran de témoignages */
+.testimonial-screenshot {
+  max-height: 400px;
+  width: auto;
+  margin: 0 auto;
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+/* Effet de zoom léger au survol des captures d'écran */
+.testimonial-screenshot:hover {
+  transform: scale(1.02);
+  transition: transform 0.3s ease;
+}
+
+/* Amélioration du contraste pour les captures d'écran sur fond sombre */
+.bg-white\/5 .testimonial-screenshot {
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}

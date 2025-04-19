@@ -77,7 +77,9 @@ export function FinalCtaSection() {
             </div>
 
             <div className="bg-noir-profond/80 p-4 rounded-lg border border-[#C41E3A]/20">
-              <p className="text-sm text-blanc-purete/90 font-medium">✓ Objectif : Comprendre pour ne plus lutter</p>
+              <p className="text-sm text-blanc-purete/90 font-medium">
+                ✓ Objectif : Comprendre pour ne plus avoir à lutter
+              </p>
               <p className="text-xs text-[#EDEDED]/70 mt-1">Une approche différente et libératrice</p>
             </div>
           </div>
@@ -102,7 +104,7 @@ export function FinalCtaSection() {
                 text: "DERNIÈRES PLACES",
                 color: "bg-yellow-400",
               }}
-              href="https://calendly.com/utolol22"
+              href="https://calendly.com/uto-ias"
             />
             <p className="mt-4 text-xs text-[#EDEDED]/60 italic">
               Entretien confidentiel de 60 minutes - Places limitées

@@ -17,7 +17,7 @@ interface CTABannerProps {
 export function CTABanner({
   text = "Prêt(e) pour un appel offert ?",
   subtext = "Réserve ton appel gratuit et sans engagement",
-  href = "https://calendly.com/utolol22",
+  href = "https://calendly.com/uto-ias",
   className,
   bgColor = "bg-rouge-liberation",
   textColor = "text-blanc-purete",

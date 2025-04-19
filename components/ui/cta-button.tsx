@@ -25,7 +25,7 @@ interface CTAButtonProps {
 export function CTAButton({
   variant = "hero",
   className,
-  href = "https://calendly.com/utolol22",
+  href = "https://calendly.com/uto-ias",
   showIcon = true,
   pulse = false,
   fullWidth = false,

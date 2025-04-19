@@ -11,7 +11,7 @@ interface FloatingCTAProps {
   className?: string
 }
 
-export function FloatingCTA({ href = "https://calendly.com/utolol22", showLabel = true, className }: FloatingCTAProps) {
+export function FloatingCTA({ href = "https://calendly.com/uto-ias", showLabel = true, className }: FloatingCTAProps) {
   const [isVisible, setIsVisible] = useState(false)
   const [hasScrolled, setHasScrolled] = useState(false)
 
