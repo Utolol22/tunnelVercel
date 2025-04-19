@@ -1,5 +1,5 @@
 "use client"
-import { Ban, Lightbulb, Target, CheckCircle } from "lucide-react"
+import { Lightbulb, Target, CheckCircle } from "lucide-react"
 import { motion } from "framer-motion"
 import { useInView } from "react-intersection-observer"
 import {
@@ -37,28 +37,6 @@ export function MethodSection() {
 
           <motion.div className="method__points space-y-4 md:space-y-6 mb-8 md:mb-10" variants={listContainerVariants}>
             <motion.div
-              className="method__point flex items-start bg-blanc-purete p-6 rounded-lg shadow-md border-l-4 border-rouge-liberation transition-shadow hover:shadow-lg"
-              variants={listItemVariants}
-            >
-              <Ban className="h-8 w-8 mr-4 md:mr-6 text-rouge-liberation flex-shrink-0 mt-1" aria-hidden="true" />
-              <div className="text-base md:text-lg text-gris-sagesse space-y-2">
-                <p>
-                  Il ne s'agit pas d'éviter l'alcool par peur.
-                  <br />
-                  Ni de serrer les dents pour résister aux pulsions jour après jour. <strong>C'est épuisant.</strong>
-                </p>
-                <p>
-                  Ni de mener une guerre intérieure permanente.
-                  <br />
-                  (Crois-moi, après <strong>plus de 1000 jours libéré(e)</strong> de ça, je sais la différence.)
-                </p>
-                <p className="italic text-sm text-gris-sagesse/80 mt-3">
-                  (<em>Ni de rester dans le regret, la honte, le doute à vie.</em>)
-                </p>
-              </div>
-            </motion.div>
-
-            <motion.div
               className="method__point flex items-start bg-blanc-purete p-6 rounded-lg shadow-md border-l-4 border-yellow-400 transition-shadow hover:shadow-lg"
               variants={listItemVariants}
             >
@@ -92,7 +70,10 @@ export function MethodSection() {
                   que l'envie de boire <strong>perdra son sens</strong>.
                 </p>
                 <p>
-                  On va déconstruire ensemble l'idée que l'alcool *"aide"*, *"apaise"* ou *"comble"* quoi que ce soit.
+                  On va déconstruire ensemble l'idée que l'alcool{" "}
+                  <span className="text-rouge-liberation underline">"aide"</span>,{" "}
+                  <span className="text-rouge-liberation underline">"apaise"</span> ou{" "}
+                  <span className="text-rouge-liberation underline">"comble"</span> quoi que ce soit.
                   <br />
                   Tu verras qu'il crée souvent l'inconfort même qu'il prétend soulager.
                 </p>
