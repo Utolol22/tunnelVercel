@@ -259,15 +259,15 @@ export function TestimonialsSection() {
           </div>
 
           {/* Carrousel de témoignages */}
-          <div ref={carouselRef} className="relative mb-16 w-full overflow-hidden">
+          <div ref={carouselRef} className="relative mb-16 w-full">
             <div className="overflow-hidden rounded-xl w-full">
               <div
-                className="flex w-full transition-transform duration-500 ease-in-out"
+                className="flex w-full transition-transform duration-500 ease-in-out overflow-hidden"
                 style={{ transform: `translateX(-${activeIndex * 100}%)` }}
               >
                 {testimonials.map((testimonial) => (
-                  <div key={testimonial.id} className="w-full flex-shrink-0 px-2 sm:px-4">
-                    <div className="bg-white/5 rounded-xl overflow-hidden border border-rouge-liberation/20 shadow-xl">
+                  <div key={testimonial.id} className="w-full flex-shrink-0 px-0 sm:px-4">
+                    <div className="bg-white/5 rounded-xl overflow-hidden border border-rouge-liberation/20 shadow-xl max-w-full">
                       <div className="p-6 flex flex-col items-center">
                         {/* Affichage de la capture d'écran complète */}
                         {testimonial.showFullImage ? (
@@ -277,7 +277,7 @@ export function TestimonialsSection() {
                               alt={`Témoignage de ${testimonial.name}`}
                               width={600}
                               height={400}
-                              className="w-full object-contain"
+                              className="w-full object-contain max-h-[250px] sm:max-h-none"
                             />
                           </div>
                         ) : (
@@ -339,17 +339,17 @@ export function TestimonialsSection() {
             {/* Contrôles du carrousel */}
             <button
               onClick={prevSlide}
-              className="absolute top-1/2 left-0 -translate-y-1/2 translate-x-1 sm:-translate-x-2 bg-noir-profond/80 text-blanc-purete rounded-full p-1 sm:p-2 hover:bg-rouge-liberation/80 transition-colors z-20"
+              className="absolute top-1/2 left-0 -translate-y-1/2 translate-x-1 bg-noir-profond/80 text-blanc-purete rounded-full p-2 hover:bg-rouge-liberation/80 transition-colors z-20"
               aria-label="Témoignage précédent"
             >
-              <ChevronLeft size={24} />
+              <ChevronLeft size={20} />
             </button>
             <button
               onClick={nextSlide}
-              className="absolute top-1/2 right-0 -translate-y-1/2 -translate-x-1 sm:translate-x-2 bg-noir-profond/80 text-blanc-purete rounded-full p-1 sm:p-2 hover:bg-rouge-liberation/80 transition-colors z-20"
+              className="absolute top-1/2 right-0 -translate-y-1/2 -translate-x-1 bg-noir-profond/80 text-blanc-purete rounded-full p-2 hover:bg-rouge-liberation/80 transition-colors z-20"
               aria-label="Témoignage suivant"
             >
-              <ChevronRight size={24} />
+              <ChevronRight size={20} />
             </button>
 
             {/* Indicateurs */}

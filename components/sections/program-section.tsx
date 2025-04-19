@@ -255,12 +255,12 @@ export function ProgramSection() {
               <div
                 key={phase.id}
                 ref={(el) => (phaseRefs.current[index] = el)}
-                className={`relative w-full ${index % 2 === 0 ? "md:ml-auto md:mr-12" : "md:mr-auto md:ml-12"} md:w-[80%] max-w-3xl`}
+                className="relative w-full md:w-[80%] max-w-3xl mx-auto"
               >
                 {/* Marqueur sur la ligne de progression */}
                 <div
                   id={`phase-marker-${index}`}
-                  className={`absolute left-4 sm:left-8 md:left-0 top-12 w-6 h-6 sm:w-8 sm:h-8 bg-blanc-purete border-4 border-rouge-liberation rounded-full transform -translate-x-1/2 z-20 transition-all duration-300 ease-out
+                  className={`absolute left-4 top-12 w-6 h-6 bg-blanc-purete border-4 border-rouge-liberation rounded-full transform -translate-x-1/2 z-20 transition-all duration-300 ease-out
                     ${index === activePhaseIndex ? "scale-125 bg-rouge-liberation border-blanc-purete" : ""}
                   `}
                 >
@@ -270,38 +270,31 @@ export function ProgramSection() {
                 </div>
 
                 {/* Carte de phase */}
-                <motion.div
-                  whileHover={{
-                    scale: 1.02,
-                    boxShadow: "0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.05)",
-                  }}
-                  transition={{ type: "spring", stiffness: 300, damping: 20 }}
-                  className="ml-12 sm:ml-16 md:ml-0 w-full"
-                >
+                <div className="ml-12 w-full">
                   <Card className="border-none rounded-xl overflow-hidden shadow-md hover:shadow-lg transition-shadow duration-300">
                     <CardContent className="p-0">
                       {/* En-tête de phase avec dégradé */}
-                      <div className="bg-gradient-to-r from-rouge-liberation to-rouge-liberation/80 text-blanc-purete p-6 flex items-center">
-                        <div className="w-16 h-16 rounded-full bg-blanc-purete/20 flex items-center justify-center mr-4 backdrop-blur-sm">
+                      <div className="bg-gradient-to-r from-rouge-liberation to-rouge-liberation/80 text-blanc-purete p-4 flex items-center">
+                        <div className="w-12 h-12 rounded-full bg-blanc-purete/20 flex items-center justify-center mr-3 backdrop-blur-sm">
                           {phase.icon}
                         </div>
-                        <h3 className="text-xl md:text-2xl font-bold">{phase.title}</h3>
+                        <h3 className="text-lg md:text-2xl font-bold">{phase.title}</h3>
                       </div>
 
                       {/* Contenu de la phase */}
-                      <div className="p-6 bg-blanc-purete phase-content">
-                        <ul className="space-y-4">
+                      <div className="p-4 bg-blanc-purete phase-content">
+                        <ul className="space-y-3">
                           {phase.description.map((point, i) => (
                             <li key={i} className="flex items-start">
-                              <span className="text-rouge-liberation font-bold text-lg mr-3">•</span>
-                              <span className="text-[#2A2A2A] text-base md:text-lg">{point}</span>
+                              <span className="text-rouge-liberation font-bold text-lg mr-2">•</span>
+                              <span className="text-[#2A2A2A] text-sm md:text-base">{point}</span>
                             </li>
                           ))}
                         </ul>
                       </div>
                     </CardContent>
                   </Card>
-                </motion.div>
+                </div>
               </div>
             ))}
           </div>
