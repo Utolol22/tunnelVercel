@@ -3,7 +3,7 @@ import { useState, useRef, useEffect } from "react"
 import Image from "next/image"
 import { motion, AnimatePresence } from "framer-motion"
 import { useInView } from "react-intersection-observer"
-import { ChevronLeft, ChevronRight, ArrowRightCircle, Quote, X } from "lucide-react"
+import { ChevronLeft, ChevronRight, ArrowRightCircle, Quote, X, ExternalLink } from "lucide-react"
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogClose } from "@/components/ui/dialog"
 import { CTAButton } from "@/components/ui/cta-button"
 import gsap from "gsap"
@@ -14,41 +14,10 @@ if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger)
 }
 
-// Données des témoignages
+// Données des témoignages - Réorganisées avec Laetitia en premier
 const testimonials = [
   {
-    id: 1,
-    name: "Anonyme",
-    info: "Accompagnement de 6 mois",
-    quote:
-      "Pierre transmet naturellement la motivation à se remettre dans une dynamique de vie et c'est concret, par le corps, la compréhension de soi. L'accompagnement qu'il propose inspire, nourris et change le quotidien. Merci pour les ressources qui changent la Vie.",
-    image: "/img/testimonial-1.png",
-    highlighted: "L'accompagnement qu'il propose inspire, nourris et change le quotidien.",
-    showFullImage: true,
-  },
-  {
-    id: 2,
-    name: "Client(e)",
-    info: "10 mois d'arrêt",
-    quote:
-      "Grâce à Uto, j'ai complètement changé mon rapport à l'alcool et ma vision de cette substance... L'accompagnement empathique et attentionné qu'il a eu depuis le départ, ont été déterminants dans mon arrêt depuis 10 mois à présent, ce que je n'aurais jamais cru possible...",
-    image: "/img/testimonial-2.png",
-    emojis: true,
-    highlighted: "J'ai complètement changé mon rapport à l'alcool, ce que je n'aurais jamais cru possible.",
-    showFullImage: true,
-  },
-  {
-    id: 3,
-    name: "Client(e)",
-    info: "Transformation personnelle",
-    quote:
-      "Pierre m'a permis d'impulser dans ma vie une énergie constructive en accord avec ma personnalité! Il sait déceler les endroits où on a besoin de se soutenir au quotidien et donne les outils adaptés, efficaces et simple à mettre en place. Il a beaucoup de cordes à son arc, une sacré expérience de vie qu'il met au service de l'accompagnement.",
-    image: "/img/testimonial-3.png",
-    highlighted: "Il sait déceler les endroits où on a besoin de se soutenir et donne les outils adaptés.",
-    showFullImage: true,
-  },
-  {
-    id: 4,
+    id: 4, // Gardé l'ID original pour maintenir la cohérence
     name: "Laetitia",
     info: "8 mois d'abstinence",
     quote:
@@ -66,6 +35,38 @@ Il y a encore du travail, mais par rapport à l'alcool, je n'ai plus du tout à 
     hasFullStory: true,
     highlighted:
       "Je me fais confiance et ne reste plus dans des situations non satisfaisantes, je me sens libre et vivante.",
+    showFullImage: true,
+    showAsMiniature: true, // Nouvelle propriété pour afficher comme miniature
+  },
+  {
+    id: 1,
+    name: "Marion",
+    info: "Accompagnement de 6 mois",
+    quote:
+      "Pierre transmet naturellement la motivation à se remettre dans une dynamique de vie et c'est concret, par le corps, la compréhension de soi. L'accompagnement qu'il propose inspire, nourris et change le quotidien. Merci pour les ressources qui changent la Vie.",
+    image: "/img/testimonial-1.png",
+    highlighted: "L'accompagnement qu'il propose inspire, nourris et change le quotidien.",
+    showFullImage: true,
+  },
+  {
+    id: 2,
+    name: "Nico",
+    info: "10 mois d'arrêt",
+    quote:
+      "Grâce à Uto, j'ai complètement changé mon rapport à l'alcool et ma vision de cette substance... L'accompagnement empathique et attentionné qu'il a eu depuis le départ, ont été déterminants dans mon arrêt depuis 10 mois à présent, ce que je n'aurais jamais cru possible...",
+    image: "/img/testimonial-2.png",
+    emojis: true,
+    highlighted: "J'ai complètement changé mon rapport à l'alcool, ce que je n'aurais jamais cru possible.",
+    showFullImage: true,
+  },
+  {
+    id: 3,
+    name: "Client(e)",
+    info: "Transformation personnelle",
+    quote:
+      "Pierre m'a permis d'impulser dans ma vie une énergie constructive en accord avec ma personnalité! Il sait déceler les endroits où on a besoin de se soutenir au quotidien et donne les outils adaptés, efficaces et simple à mettre en place. Il a beaucoup de cordes à son arc, une sacré expérience de vie qu'il met au service de l'accompagnement.",
+    image: "/img/testimonial-3.png",
+    highlighted: "Il sait déceler les endroits où on a besoin de se soutenir et donne les outils adaptés.",
     showFullImage: true,
   },
 ]
@@ -242,7 +243,7 @@ export function TestimonialsSection() {
             Leurs Mots, Leur Transformation :
           </motion.h2>
 
-          {/* Citations mises en valeur */}
+          {/* Citations mises en valeur - Utiliser les deux premiers témoignages (dont Laetitia maintenant) */}
           <div ref={highlightsRef} className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-16">
             {testimonials.slice(0, 2).map((testimonial) => (
               <motion.div
@@ -304,18 +305,28 @@ export function TestimonialsSection() {
                           </div>
                           <p className="text-sm text-yellow-400 mb-6">{testimonial.info}</p>
 
-                          {/* Pour le témoignage 4 (Laetitia), on affiche toujours la citation */}
-                          {testimonial.id === 4 && <p className="text-lg italic mb-6">"{testimonial.quote}"</p>}
-
-                          {/* Bouton "Lire la suite" pour le témoignage long */}
-                          {testimonial.hasFullStory && (
-                            <button
-                              onClick={() => openFullStory(testimonial)}
-                              className="flex items-center justify-center mx-auto text-yellow-400 hover:text-yellow-300 transition-colors"
-                            >
-                              <span className="mr-2">Lire l'histoire complète</span>
-                              <ArrowRightCircle className="w-5 h-5" />
-                            </button>
+                          {/* Pour Laetitia, afficher une miniature cliquable au lieu du texte complet */}
+                          {testimonial.showAsMiniature ? (
+                            <div className="flex flex-col items-center">
+                              <p className="text-lg italic mb-4">"{testimonial.quote.substring(0, 100)}..."</p>
+                              <button
+                                onClick={() => openFullStory(testimonial)}
+                                className="flex items-center justify-center mx-auto text-yellow-400 hover:text-yellow-300 transition-colors bg-white/5 px-4 py-2 rounded-lg border border-yellow-400/30 hover:bg-white/10"
+                              >
+                                <span className="mr-2">Lire le témoignage complet</span>
+                                <ExternalLink className="w-4 h-4" />
+                              </button>
+                            </div>
+                          ) : (
+                            testimonial.hasFullStory && (
+                              <button
+                                onClick={() => openFullStory(testimonial)}
+                                className="flex items-center justify-center mx-auto text-yellow-400 hover:text-yellow-300 transition-colors"
+                              >
+                                <span className="mr-2">Lire l'histoire complète</span>
+                                <ArrowRightCircle className="w-5 h-5" />
+                              </button>
+                            )
                           )}
                         </div>
                       </div>
